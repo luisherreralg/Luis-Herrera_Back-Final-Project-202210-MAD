@@ -14,7 +14,6 @@ type Sizes =
     | '44.5';
 
 export type ProtoSneaker = {
-    name?: string;
     brand?: string;
     model?: string;
     size?: Sizes[];
@@ -22,12 +21,11 @@ export type ProtoSneaker = {
     onSalePrice?: number;
     onSale?: boolean;
     stock?: number;
-    gender?: string;
+    gender?: 'male' | 'female';
 };
 
 export type Sneaker = {
     id: Types.ObjectId;
-    name: string;
     brand: string;
     model: string;
     size: Sizes[];
@@ -35,11 +33,10 @@ export type Sneaker = {
     onSalePrice: number;
     onSale: boolean;
     stock: number;
-    gender: string;
+    gender: 'male' | 'female';
 };
 
 export const sneakerSchema = new Schema<Sneaker>({
-    name: { type: String, required: true },
     brand: { type: String, required: true },
     model: { type: String, required: true },
     size: { type: [String], required: true },
@@ -59,4 +56,8 @@ sneakerSchema.set('toJSON', {
     },
 });
 
-export const Sneaker = model<Sneaker>('Sneaker', sneakerSchema, 'Sneakers');
+export const SneakerModel = model<Sneaker>(
+    'Sneaker',
+    sneakerSchema,
+    'Sneakers'
+);
