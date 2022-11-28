@@ -4,6 +4,6 @@ dotenv.config();
 export const URL = process.env.URL;
 export const PORT = process.env.PORT;
 export const USER = process.env.USER;
-export const PW = process.env.PW;
+export const PASSWORD = process.env.PASSWORD;
 export const CLUSTER = process.env.CLUSTER;
 export const SECRET = process.env.SECRET;

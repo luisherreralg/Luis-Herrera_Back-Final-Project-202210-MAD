@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import mongoose from 'mongoose';
-import { CLUSTER, PW, USER } from '../../config.js';
+import { CLUSTER, PASSWORD, USER } from '../../config.js';
 
 const debug = createDebug('SERVER:src:utils:db:db.connections');
 
@@ -21,7 +21,7 @@ export class DbConnections {
     async dbConnect() {
         const DBName =
             process.env.NODE_ENV !== 'test' ? 'Sneakers' : 'SneakersTesting';
-        let uri = `mongodb+srv://${USER}:${PW}`;
+        let uri = `mongodb+srv://${USER}:${PASSWORD}`;
         uri += `@${CLUSTER}/${DBName}?retryWrites=true&w=majority`;
         return mongoose.connect(uri);
     }
