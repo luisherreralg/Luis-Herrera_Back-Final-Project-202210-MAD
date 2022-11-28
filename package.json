@@ -5,13 +5,13 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "start": "cross-env DEBUG=W8* node dist/index.js",
-        "start:dev": "cross-env  DEBUG=W8* PORT=7700 nodemon dist/index.js",
+        "start": "cross-env DEBUG=SERVER* node dist/index.js",
+        "start:dev": "cross-env  DEBUG=SERVER* PORT=7700 nodemon dist/index.js",
         "build": "tsc",
         "build:dev": "tsc --watch",
-        "test": "cross-env NODE_ENV=test jest --watchAll --coverage --passWithNoTests",
-        "test:band": "cross-env NODE_ENV=test jest --watchAll --coverage --runInBand --passWithNoTests",
-        "test:prod": "cross-env NODE_ENV=test jest --coverage --runInBand --passWithNoTests",
+        "test": "cross-env NODE_ENV=test jest --watchAll --coverage",
+        "test:band": "cross-env NODE_ENV=test jest --watchAll --coverage --runInBand",
+        "test:prod": "cross-env NODE_ENV=test jest --coverage --runInBand",
         "dev": "run-p build:dev start:dev"
     },
     "keywords": [],
