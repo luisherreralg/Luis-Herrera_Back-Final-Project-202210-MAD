@@ -1,4 +1,5 @@
 import { ProtoSneaker, SneakerModel } from '../../entities/sneaker.js';
+import { ProtoUser, UserModel } from '../../entities/user.js';
 import { DbConnections } from '../db/db.connections.js';
 
 const connections = DbConnections.getInstance();
@@ -34,7 +35,32 @@ export async function setUpSneakerCollection() {
     return [data[0].id, data[1].id];
 }
 
-const mockError = {
+export const mockUsers: ProtoUser[] = [
+    {
+        name: 'Test1Name',
+        surname: 'Test1Surname',
+        email: 'Test1Email',
+        password: 'Test1Password',
+        role: 'user',
+    },
+    {
+        name: 'Test2Name',
+        surname: 'Test2Surname',
+        email: 'Test2Email',
+        password: 'Test2Password',
+        role: 'user',
+    },
+];
+
+export async function setUpUserCollection() {
+    await connections.dbConnect();
+    await UserModel.deleteMany();
+    await UserModel.insertMany(mockUsers);
+    const data = await UserModel.find();
+    return [data[0].id, data[1].id];
+}
+
+export const mockError = {
     message: undefined,
     statusCode: 503,
     statusMessage: 'Service unavailable',
