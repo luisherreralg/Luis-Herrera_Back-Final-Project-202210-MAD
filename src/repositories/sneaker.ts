@@ -29,6 +29,7 @@ export class SneakerRepository implements Repo<Sneaker> {
     }
 
     /**
+     * ! NEED TO CHECK
      * * Found the $or operator on
      * https://stackoverflow.com/questions/33627238/mongoose-find-with-multiple-conditions
      *
