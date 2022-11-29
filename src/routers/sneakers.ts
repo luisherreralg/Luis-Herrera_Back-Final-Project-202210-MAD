@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { SneakerController } from '../controllers/sneaker.js';
+import { SneakerController } from '../controllers/sneaker.controller.js';
 import { SneakerRepository } from '../repositories/sneaker.js';
 
 export const sneakersRouter = Router();

@@ -98,7 +98,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
 
         test('If the data is incorrect, it should return an error', async () => {
             expect(async () => {
-                await repo.patch(testIds[0], { model: '' });
+                await repo.patch(testIds[10], { model: '' });
             }).rejects.toThrow();
         });
     });

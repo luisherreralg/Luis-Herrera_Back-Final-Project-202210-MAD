@@ -33,3 +33,9 @@ export async function setUpSneakerCollection() {
     const data = await SneakerModel.find();
     return [data[0].id, data[1].id];
 }
+
+const mockError = {
+    message: undefined,
+    statusCode: 503,
+    statusMessage: 'Service unavailable',
+};
