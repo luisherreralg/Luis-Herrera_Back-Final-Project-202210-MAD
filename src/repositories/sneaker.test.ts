@@ -9,7 +9,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
     const repo = SneakerRepository.getInstance();
     let testIds: string[];
 
-    // TODO: Revisar las líneas 64 y 84
+    // TODO: review lines 64 and 84
     beforeEach(async () => {
         connections.dbConnect();
         testIds = await setUpSneakerCollection();
@@ -104,9 +104,10 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
     });
 
     describe('When the delete its invoked', () => {
-        test('If the id its correct it should return the id', async () => {
+        test('If the id is correct, it should return the deleted sneaker', async () => {
             const result = await repo.delete(testIds[0]);
-            expect(result).toEqual(testIds[0]);
+            console.log(result);
+            expect(result).toBe(testIds[0]);
         });
 
         test('If the id its incorrect it should return an error', async () => {
