@@ -14,7 +14,7 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
         testIds = await setUpUserCollection();
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         connections.dbDisconnect();
     });
 
