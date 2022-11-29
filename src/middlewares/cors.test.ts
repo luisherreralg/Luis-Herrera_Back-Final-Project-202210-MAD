@@ -18,5 +18,14 @@ describe('Given the setCors middleware', () => {
                 '*'
             );
         });
+
+        test('Then if the req.header is "Origin", it should add the origin value as "Origin"', () => {
+            req.header = jest.fn().mockReturnValue('Origin');
+            setCors(req as Request, res as Response, next);
+            expect(res.setHeader).toHaveBeenCalledWith(
+                'Access-Control-Allow-Origin',
+                'Origin'
+            );
+        });
     });
 });

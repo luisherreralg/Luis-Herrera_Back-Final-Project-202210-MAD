@@ -3,6 +3,8 @@ import express from 'express';
 import morgan from 'morgan';
 import { setCors } from './middlewares/cors.js';
 import { errorManager } from './middlewares/errors.js';
+import { sneakersRouter } from './routers/sneakers.js';
+import { usersRouter } from './routers/users.js';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -20,5 +22,8 @@ const template = 'Work in progress';
 app.get('/', (_req, res) => {
     res.send(template).end();
 });
+
+app.use('/sneakers', sneakersRouter);
+app.use('/users', usersRouter);
 
 app.use(errorManager);
