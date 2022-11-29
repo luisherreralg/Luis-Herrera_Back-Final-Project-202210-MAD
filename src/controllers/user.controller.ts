@@ -38,7 +38,9 @@ export class UserController {
                 user.password
             );
 
-            if (!isPasswdValid) throw new Error();
+            if (!isPasswdValid) {
+                throw new Error();
+            }
             const token = generateToken({
                 id: user.id.toString(),
                 name: user.name,
