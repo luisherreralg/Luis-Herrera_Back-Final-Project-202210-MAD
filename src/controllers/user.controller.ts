@@ -30,8 +30,6 @@ export class UserController {
                 email: req.body.email,
             } as User);
 
-            user.id;
-
             const isPasswdValid = await validatePassword(
                 req.body.password,
 

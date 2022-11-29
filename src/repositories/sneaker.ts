@@ -58,7 +58,7 @@ export class SneakerRepository implements Repo<Sneaker> {
 
     async post(data: ProtoSneaker): Promise<Sneaker> {
         debug('post', data);
-        const result = await await this.#Model.create(data);
+        const result = await this.#Model.create(data);
         return result;
     }
 
