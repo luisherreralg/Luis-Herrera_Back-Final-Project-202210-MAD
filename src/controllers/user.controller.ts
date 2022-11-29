@@ -29,6 +29,7 @@ export class UserController {
             const user = await this.repository.find({
                 email: req.body.email,
             } as User);
+
             user.id;
 
             const isPasswdValid = await validatePassword(
@@ -43,6 +44,8 @@ export class UserController {
                 name: user.name,
                 role: user.role,
             });
+
+            resp.status(201);
             resp.json({ token });
         } catch (error) {
             next(this.#createHttpError(error as Error));

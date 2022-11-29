@@ -22,10 +22,6 @@ export class UserRepository implements UserRepo<User> {
     async get(id: id): Promise<User> {
         debug('get', id);
         const result = (await this.#Model.findById(id)) as User;
-        // // if (!result) {
-        //     //  LINE 26
-        // //     throw new Error('Not found id');
-        // // }
         return result;
     }
 
