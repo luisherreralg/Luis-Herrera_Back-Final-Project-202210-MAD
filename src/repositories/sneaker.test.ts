@@ -29,8 +29,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
             await SneakerModel.deleteMany();
 
             expect(async () => {
-                const test = await repo.getAll();
-                console.log(test);
+                await repo.getAll();
             }).rejects.toThrow('Empty collection');
         });
 
@@ -106,7 +105,6 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
     describe('When the delete its invoked', () => {
         test('If the id is correct, it should return the deleted sneaker', async () => {
             const result = await repo.delete(testIds[0]);
-            console.log(result);
             expect(result).toBe(testIds[0]);
         });
 
