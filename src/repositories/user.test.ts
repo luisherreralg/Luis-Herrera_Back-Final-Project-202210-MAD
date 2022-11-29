@@ -26,7 +26,7 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
 
         test('If the id is not found should throw an error', () => {
             expect(async () => {
-                await repo.get('');
+                await repo.get('1234567891234567891234');
             }).rejects.toThrow();
         });
 
@@ -72,9 +72,10 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
             expect(result.length).toBe(1);
         });
 
-        test('Then if the query is not valid, it should return an empty array', async () => {
-            const result = await repo.search('Manuel');
-            expect(result).toEqual([]);
+        test('Then if the query is not valid, it should return an error', async () => {
+            expect(async () => {
+                await repo.search('Manuel');
+            }).rejects.toThrowError();
         });
     });
 });

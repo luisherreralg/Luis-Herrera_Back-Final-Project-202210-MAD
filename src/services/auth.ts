@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bc from 'bcryptjs';
-import { SECRET } from '../config';
+import { SECRET } from '../config.js';
 
 export const getSecretWord = (secret = SECRET) => {
     if (typeof secret !== 'string' || secret === '') {

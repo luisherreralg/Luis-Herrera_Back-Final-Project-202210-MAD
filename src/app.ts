@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import { setCors } from './middlewares/cors.js';
 import { errorManager } from './middlewares/errors.js';
 import { sneakersRouter } from './routers/sneakers.js';
+import { usersRouter } from './routers/users.js';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -23,5 +24,6 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/sneakers', sneakersRouter);
+app.use('/users', usersRouter);
 
 app.use(errorManager);
