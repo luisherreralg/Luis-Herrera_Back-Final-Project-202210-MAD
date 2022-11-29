@@ -1,11 +1,11 @@
 import { model, Schema, Types } from 'mongoose';
 
 export type ProtoUser = {
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
-    role: 'user' | 'admin';
+    name?: string;
+    surname?: string;
+    email?: string;
+    password?: string;
+    role?: 'user' | 'admin';
 };
 
 export type User = {
