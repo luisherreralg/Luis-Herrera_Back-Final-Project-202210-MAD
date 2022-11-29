@@ -78,4 +78,16 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
             }).rejects.toThrowError();
         });
     });
+
+    describe('When find its invoked', () => {
+        test('Then it should return an item', async () => {
+            const result = await repo.find({ name: 'Test1Name' });
+            console.log(
+                "🚀 ~ file: user.test.ts:85 ~', ~ test ~ result",
+                result
+            );
+
+            expect(result.name).toEqual(mockData[0].name);
+        });
+    });
 });

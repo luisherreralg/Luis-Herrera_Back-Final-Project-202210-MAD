@@ -59,9 +59,6 @@ export class SneakerRepository implements Repo<Sneaker> {
     async post(data: ProtoSneaker): Promise<Sneaker> {
         debug('post', data);
         const result = await await this.#Model.create(data);
-        if (!result) {
-            throw new Error('Not created data');
-        }
         return result;
     }
 
@@ -78,10 +75,7 @@ export class SneakerRepository implements Repo<Sneaker> {
 
     async delete(id: id): Promise<id> {
         debug('delete', id);
-        const result = await this.#Model.findByIdAndDelete(id);
-        if (!result) {
-            throw new Error('Not found id');
-        }
+        await this.#Model.findByIdAndDelete(id);
         return id;
     }
 }
