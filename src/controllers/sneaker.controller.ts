@@ -15,7 +15,9 @@ export class SneakerController {
         try {
             debug('GetAll controller using repository getAll');
             const sneakers = await this.repository.getAll();
-            resp.status(201).json({ sneakers });
+
+            resp.status(201);
+            resp.json({ sneakers });
         } catch (error) {
             const httpError = new HTTPError(
                 503,

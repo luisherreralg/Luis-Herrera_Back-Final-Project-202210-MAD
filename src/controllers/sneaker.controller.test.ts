@@ -9,13 +9,16 @@ describe('Given the sneaker controller', () => {
     const sneakerController = new SneakerController(repo);
     const req: Partial<Request> = {};
     const resp: Partial<Response> = {
+        status: jest.fn().mockReturnValue(201),
         json: jest.fn(),
     };
     const next: NextFunction = jest.fn();
+
     const mockResponse = { sneakers: ['sneaker'] };
 
     test('Then getAll should return an array of sneakers', async () => {
         await sneakerController.getAll(req as Request, resp as Response, next);
         expect(resp.json).toHaveBeenCalledWith(mockResponse);
+        expect(resp.status).toHaveBeenCalledWith(201);
     });
 });
