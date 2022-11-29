@@ -1,16 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import { CustomError, HTTPError } from '../interfaces/error';
+import { CustomError } from '../interfaces/error';
 import { errorManager } from './errors';
 
 describe('Given the errorManager function', () => {
     describe('When its invoked', () => {
         const req = {};
         const res = {
-            status: jest.fn().mockReturnValue({
-                json: jest.fn().mockReturnValue({
-                    end: jest.fn(),
-                }),
-            }),
+            status: jest.fn().mockReturnValue({}),
+            json: jest.fn().mockReturnValue({}),
+            end: jest.fn().mockReturnValue({}),
         };
         const next = jest.fn();
         const mockError = {
