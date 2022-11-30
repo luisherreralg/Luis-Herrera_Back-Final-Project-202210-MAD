@@ -7,11 +7,10 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
     const mockData = mockUsers;
     const connections = DbConnections.getInstance();
     const repo = UserRepository.getInstance();
-    let testIds: string[];
 
     beforeEach(async () => {
         connections.dbConnect();
-        testIds = await setUpUserCollection();
+        await setUpUserCollection();
     });
 
     afterEach(async () => {

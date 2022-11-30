@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { createHttpError } from '../utils/create.http.error/create.http.error';
-import { ExtraRequest, logged } from './interceptors';
+import { checkRole, ExtraRequest, logged } from './interceptors';
 
 describe('Given the logged interceptor', () => {
     describe('When its invoked', () => {
@@ -31,7 +31,7 @@ describe('Given the logged interceptor', () => {
         );
     });
 
-    test('Then if the readToken inside the logged interceptor function reads a correct token, it should return the payload', async () => {
+    test('Then if the readToken inside the logged interceptor function reads a correct token, it should return the payload', () => {
         const req: Partial<ExtraRequest> = {
             get: jest
                 .fn()
@@ -42,7 +42,7 @@ describe('Given the logged interceptor', () => {
         const res: Partial<Response> = {};
         const next: NextFunction = jest.fn();
 
-        await logged(req as ExtraRequest, res as Response, next);
+        logged(req as ExtraRequest, res as Response, next);
         expect(next).toHaveBeenCalled();
 
         expect(req.payload).toStrictEqual({
@@ -50,6 +50,38 @@ describe('Given the logged interceptor', () => {
             iat: expect.any(Number),
             name: 'Luis',
             role: 'user',
+        });
+    });
+});
+
+describe('Given the checkRole interceptor', () => {
+    describe('When its invoked', () => {
+        test('Then it should throw an error if the req.payload.role is not "admin"', () => {
+            const req: Partial<ExtraRequest> = {
+                payload: {
+                    role: 'user',
+                },
+            };
+            const res: Partial<Response> = {};
+            const next: NextFunction = jest.fn();
+
+            checkRole(req as ExtraRequest, res as Response, next);
+            expect(next).toHaveBeenCalledWith(
+                createHttpError(new Error('Unauthorized'))
+            );
+        });
+
+        test('Then if the role is admin it should pass the next function with the correct data', () => {
+            const req: Partial<ExtraRequest> = {
+                payload: {
+                    role: 'admin',
+                },
+            };
+            const res: Partial<Response> = {};
+            const next: NextFunction = jest.fn();
+
+            checkRole(req as ExtraRequest, res as Response, next);
+            expect(next).toHaveBeenCalled();
         });
     });
 });
