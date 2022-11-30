@@ -13,12 +13,12 @@ describe('Given the setCors middleware', () => {
 
         test('Then it should set the Access-Control-Allow-Origin header', () => {
             const req: Partial<Request> = {
-                header: jest.fn().mockReturnValue(undefined),
+                header: jest.fn().mockReturnValue('*'),
             };
             setCors(req as Request, res as Response, next);
             expect(res.setHeader).toHaveBeenCalledWith(
                 'Access-Control-Allow-Origin',
-                undefined
+                '*'
             );
         });
 
