@@ -12,7 +12,7 @@ describe('Given the sneaker controller', () => {
 
     // TODO: Preguntar a Sergio
     //No funciona con beforeAll
-    beforeEach(() => {
+    beforeAll(() => {
         repo = SneakerRepository.getInstance();
         repo.getAll = jest.fn().mockResolvedValue(['sneaker']);
 
