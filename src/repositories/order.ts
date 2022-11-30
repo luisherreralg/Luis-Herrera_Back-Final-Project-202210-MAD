@@ -1,11 +1,10 @@
 import createDebug from 'debug';
-import mongoose, { Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { Order, OrderModel, ProtoOrder } from '../entities/order.js';
 import { User } from '../entities/user.js';
 
 const debug = createDebug('SERVER:src:repositories:OrderRepository');
 
-// ! Falta tipar el repo
 export class OrderRepository {
     static instance: OrderRepository;
 
