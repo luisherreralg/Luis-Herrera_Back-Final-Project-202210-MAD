@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 import { readToken } from '../services/auth.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
+import createDebug from 'debug';
+const debug = createDebug('SERVER:src:middlewares:interceptors');
 
-interface ExtraRequest extends Request {
+export interface ExtraRequest extends Request {
     payload?: JwtPayload;
 }
 
@@ -15,6 +17,7 @@ export const logged = (
     const authString = req.get('Authorization');
 
     if (!authString || !authString.startsWith('Bearer ')) {
+        debug('Not Logged');
         next(createHttpError(new Error('Not logged')));
         return;
     }
@@ -22,7 +25,23 @@ export const logged = (
     try {
         const token = authString.slice(7);
         req.payload = readToken(token);
+        debug('Logged');
         next();
+    } catch (error) {
+        next(createHttpError(error as Error));
+    }
+};
+
+export const checkRole = async (
+    req: ExtraRequest,
+    res: Response,
+    next: NextFunction
+) => {
+    debug('checkRole');
+    try {
+        if (!req.payload || req.payload.role !== 'admin') {
+            throw new Error('Unauthorized');
+        }
     } catch (error) {
         next(createHttpError(error as Error));
     }
