@@ -18,6 +18,8 @@ export interface Repo<T> extends BasicRepo<T> {
     delete: (id: id) => Promise<id>;
 }
 
-export interface UserRepo<T> extends BasicRepo<T> {
+export interface UserRepo<T> {
     find: (data: Partial<T>) => Promise<T>;
+    post: (data: Partial<T>) => Promise<T>;
+    search: (query: string) => Promise<Array<T>>;
 }

@@ -1,10 +1,10 @@
 import createDebug from 'debug';
 import { ProtoUser, User, UserModel } from '../entities/user.js';
 import { encryptPassword } from '../services/auth.js';
-import { id, UserRepo } from './repo.js';
+import { UserRepo } from './repo.js';
 const debug = createDebug('SERVER:src:repositories:userRepository');
 
-export class UserRepository implements Partial<UserRepo<User>> {
+export class UserRepository implements UserRepo<User> {
     static instance: UserRepository;
 
     public static getInstance(): UserRepository {
