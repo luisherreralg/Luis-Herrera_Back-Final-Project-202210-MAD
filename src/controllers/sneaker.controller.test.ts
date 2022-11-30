@@ -3,18 +3,27 @@ import { SneakerRepository } from '../repositories/sneaker';
 import { SneakerController } from './sneaker.controller';
 
 describe('Given the sneaker controller', () => {
-    const repo = SneakerRepository.getInstance();
-    repo.getAll = jest.fn().mockResolvedValue(['sneaker']);
-
-    const sneakerController = new SneakerController(repo);
-    const req: Partial<Request> = {};
-    const resp: Partial<Response> = {
-        status: jest.fn().mockReturnValue(201),
-        json: jest.fn(),
-    };
-    const next: NextFunction = jest.fn();
-
+    let repo: SneakerRepository;
+    let sneakerController: SneakerController;
+    let req: Partial<Request>;
+    let resp: Partial<Response>;
+    let next: NextFunction;
     const mockResponse = { sneakers: ['sneaker'] };
+
+    // TODO: Preguntar a Sergio
+    //No funciona con beforeAll
+    beforeEach(() => {
+        repo = SneakerRepository.getInstance();
+        repo.getAll = jest.fn().mockResolvedValue(['sneaker']);
+
+        sneakerController = new SneakerController(repo);
+        req = {};
+        resp = {
+            status: jest.fn().mockReturnValue(201),
+            json: jest.fn(),
+        };
+        next = jest.fn();
+    });
 
     describe('When getAll is invoked', () => {
         test('Then it should return a json with the sneakers', async () => {
