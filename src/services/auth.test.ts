@@ -65,7 +65,6 @@ describe('Given readToken service', () => {
     });
 
     describe('When token is bad formatted', () => {
-        // jwt.sign throw an error
         const invalidToken = 'soy un token';
         test('It should throw an error', () => {
             expect(() => {

@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import { ProtoUser, User, UserModel } from '../entities/user.js';
 import { encryptPassword } from '../services/auth.js';
-import { id, UserRepo } from './repo.js';
+import { UserRepo } from './repo.js';
 const debug = createDebug('SERVER:src:repositories:userRepository');
 
 export class UserRepository implements UserRepo<User> {
@@ -17,12 +17,6 @@ export class UserRepository implements UserRepo<User> {
     #Model = UserModel;
     private constructor() {
         debug('instance');
-    }
-
-    async get(id: id): Promise<User> {
-        debug('get', id);
-        const result = (await this.#Model.findById(id)) as User;
-        return result;
     }
 
     async post(data: Partial<ProtoUser>): Promise<User> {

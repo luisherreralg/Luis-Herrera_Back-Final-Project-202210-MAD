@@ -1,9 +1,9 @@
 import { User } from '../entities/user.js';
 import { UserRepo } from '../repositories/repo.js';
 import createDebug from 'debug';
-import { HTTPError } from '../interfaces/error.js';
 import { NextFunction, Request, Response } from 'express';
 import { generateToken, validatePassword } from '../services/auth.js';
+import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
 const debug = createDebug('SERVER:src:controllers:userController');
 
@@ -18,7 +18,7 @@ export class UserController {
             const user = await this.repository.post(req.body);
             resp.status(201).json({ user });
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
     }
 
@@ -48,24 +48,7 @@ export class UserController {
             resp.status(201);
             resp.json({ token });
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
-    }
-
-    #createHttpError(error: Error) {
-        if ((error as Error).message === 'Not found id') {
-            const httpError = new HTTPError(
-                404,
-                'Not Found',
-                (error as Error).message
-            );
-            return httpError;
-        }
-        const httpError = new HTTPError(
-            503,
-            'Service unavailable',
-            (error as Error).message
-        );
-        return httpError;
     }
 }

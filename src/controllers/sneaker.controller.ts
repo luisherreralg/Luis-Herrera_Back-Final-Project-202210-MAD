@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { Sneaker } from '../entities/sneaker.js';
 import { HTTPError } from '../interfaces/error.js';
 import { Repo } from '../repositories/repo.js';
+import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
 const debug = createDebug('SERVER:src:controllers:sneaker');
 
@@ -34,7 +35,7 @@ export class SneakerController {
             const sneaker = await this.repository.get(req.params.id);
             resp.status(201).json({ sneaker });
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
     }
 
@@ -44,7 +45,7 @@ export class SneakerController {
             const sneakers = await this.repository.search(req.params.query);
             resp.status(201).json({ sneakers });
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
     }
 
@@ -72,7 +73,7 @@ export class SneakerController {
             );
             resp.status(201).json({ sneaker });
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
     }
 
@@ -82,24 +83,7 @@ export class SneakerController {
             await this.repository.delete(req.params.id);
             resp.status(201).json({});
         } catch (error) {
-            next(this.#createHttpError(error as Error));
+            next(createHttpError(error as Error));
         }
-    }
-
-    #createHttpError(error: Error) {
-        if ((error as Error).message === 'Not found id') {
-            const httpError = new HTTPError(
-                404,
-                'Not Found',
-                (error as Error).message
-            );
-            return httpError;
-        }
-        const httpError = new HTTPError(
-            503,
-            'Service unavailable',
-            (error as Error).message
-        );
-        return httpError;
     }
 }

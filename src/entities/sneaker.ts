@@ -1,6 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
 
-// Trying to type the sneaker possible sizes
 type Sizes =
     | '40'
     | '40.5'
