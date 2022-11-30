@@ -1,7 +1,6 @@
 import createDebug from 'debug';
 import { Types } from 'mongoose';
 import { Order, OrderModel, ProtoOrder } from '../entities/order.js';
-import { User } from '../entities/user.js';
 
 const debug = createDebug('SERVER:src:repositories:OrderRepository');
 
@@ -20,14 +19,14 @@ export class OrderRepository {
         debug('instanced');
     }
 
-    async find(userId: Partial<Order>): Promise<Array<Order>> {
+    async find(userId: Types.ObjectId): Promise<Array<Order>> {
         debug('find', { userId });
         const result = await this.#Model
             .find(userId)
             .populate<{ _id: Types.ObjectId }>('cartedBy')
             .populate<{ _id: Types.ObjectId }>('cartedItem');
 
-        if (!result) {
+        if (result.length === 0) {
             throw new Error('There is no order with that id');
         }
         return result;
@@ -40,10 +39,7 @@ export class OrderRepository {
         return result;
     }
 
-    async delete(
-        userId: Partial<User>,
-        itemId: Partial<Order>
-    ): Promise<Order> {
+    async delete(userId: string, itemId: string): Promise<Order> {
         debug('delete', { userId, itemId });
 
         // We find the orders owned by the user
