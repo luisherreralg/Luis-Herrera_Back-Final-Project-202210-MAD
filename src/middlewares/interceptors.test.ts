@@ -31,7 +31,7 @@ describe('Given the logged interceptor', () => {
         );
     });
 
-    test('Then if the readToken function reads a correct token, it should return the payload', () => {
+    test('Then if the readToken function reads a correct token, it should return the payload', async () => {
         const req: Partial<ExtraRequest> = {
             get: jest
                 .fn()
@@ -42,13 +42,19 @@ describe('Given the logged interceptor', () => {
         const res: Partial<Response> = {};
         const next: NextFunction = jest.fn();
 
-        logged(req as Request, res as Response, next);
+        await logged(req as Request, res as Response, next);
         expect(next).toHaveBeenCalled();
+
+        console.log(
+            '🚀 ~ file: interceptors.test.ts:49 ~ expect ~ req.payload',
+            req.payload
+        );
+
         expect(req.payload).toStrictEqual({
-            id: '6386300332f75d17ee9d62bb',
+            id: expect.any(String),
+            iat: expect.any(Number),
             name: 'Luis',
             role: 'user',
-            iat: 1669797771,
         });
     });
 });
