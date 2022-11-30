@@ -31,7 +31,7 @@ describe('Given the logged interceptor', () => {
         );
     });
 
-    test('Then if the readToken inside the logged interceptor function reads a correct token, it should return the payload', async () => {
+    test('Then if the readToken inside the logged interceptor function reads a correct token, it should return the payload', () => {
         const req: Partial<ExtraRequest> = {
             get: jest
                 .fn()
@@ -42,7 +42,7 @@ describe('Given the logged interceptor', () => {
         const res: Partial<Response> = {};
         const next: NextFunction = jest.fn();
 
-        await logged(req as ExtraRequest, res as Response, next);
+        logged(req as ExtraRequest, res as Response, next);
         expect(next).toHaveBeenCalled();
 
         expect(req.payload).toStrictEqual({
