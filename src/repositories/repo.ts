@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 export type id = number | string;
 
 export interface BasicRepo<T> {
@@ -25,7 +27,7 @@ export interface UserRepo<T> {
 }
 
 export interface OrderRepo<T> {
-    find: (userId: Partial<T>) => Promise<T>;
+    find: (userId: Partial<T>) => Promise<Array<T>>;
     post: (data: Partial<T>) => Promise<T>;
     delete: (userId: string, itemId: string) => Promise<T>;
 }
