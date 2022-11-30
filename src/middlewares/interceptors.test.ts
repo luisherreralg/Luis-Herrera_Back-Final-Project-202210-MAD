@@ -44,7 +44,7 @@ describe('Given the logged interceptor', () => {
 
         logged(req as Request, res as Response, next);
         expect(next).toHaveBeenCalled();
-        expect(req.payload).toEqual({
+        expect(req.payload).toStrictEqual({
             name: 'Luis',
             id: expect.any(String),
             iat: expect.any(Number),
