@@ -1,5 +1,3 @@
-import mongoose from 'mongoose';
-
 export type id = number | string;
 
 export interface BasicRepo<T> {

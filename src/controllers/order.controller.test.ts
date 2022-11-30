@@ -1,6 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
-import mongoose from 'mongoose';
-import { User } from '../entities/user';
+import { NextFunction, Response } from 'express';
 import { ExtraRequest } from '../middlewares/interceptors';
 import { OrderRepository } from '../repositories/order';
 import { SneakerRepository } from '../repositories/sneaker';
