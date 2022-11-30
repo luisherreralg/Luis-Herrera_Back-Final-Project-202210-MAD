@@ -33,7 +33,8 @@ export class SneakerController {
         try {
             debug('get controller using repository get');
             const sneaker = await this.repository.get(req.params.id);
-            resp.status(201).json({ sneaker });
+            resp.status(201);
+            resp.json({ sneaker });
         } catch (error) {
             next(createHttpError(error as Error));
         }
@@ -43,7 +44,8 @@ export class SneakerController {
         try {
             debug('search controller using repository search');
             const sneakers = await this.repository.search(req.params.query);
-            resp.status(201).json({ sneakers });
+            resp.status(201);
+            resp.json({ sneakers });
         } catch (error) {
             next(createHttpError(error as Error));
         }
@@ -53,7 +55,8 @@ export class SneakerController {
         try {
             debug('post controller using repository post');
             const sneaker = await this.repository.post(req.body);
-            resp.status(201).json({ sneaker });
+            resp.status(201);
+            resp.json({ sneaker });
         } catch (error) {
             const httpError = new HTTPError(
                 503,
@@ -81,7 +84,8 @@ export class SneakerController {
         try {
             debug('delete controller using repository delete');
             await this.repository.delete(req.params.id);
-            resp.status(201).json({});
+            resp.status(201);
+            resp.json({});
         } catch (error) {
             next(createHttpError(error as Error));
         }

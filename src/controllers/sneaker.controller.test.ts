@@ -50,6 +50,7 @@ describe('Given the sneaker controller', () => {
             repo.get = jest.fn().mockRejectedValue(new Error('Error'));
             await sneakerController.get(req as Request, resp as Response, next);
             expect(next).toHaveBeenCalledWith(new Error('Error'));
+            expect(resp.status).toHaveBeenCalledWith(201);
         });
     });
 
