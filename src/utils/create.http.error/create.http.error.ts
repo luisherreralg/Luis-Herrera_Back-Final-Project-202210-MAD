@@ -9,6 +9,16 @@ export const createHttpError = (error: Error) => {
         );
         return httpError;
     }
+
+    if ((error as Error).message === 'Unauthorized') {
+        const httpError = new HTTPError(
+            401,
+            'Unauthorized',
+            (error as Error).message
+        );
+        return httpError;
+    }
+
     const httpError = new HTTPError(
         503,
         'Service unavailable',
