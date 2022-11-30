@@ -45,10 +45,10 @@ describe('Given the logged interceptor', () => {
         logged(req as Request, res as Response, next);
         expect(next).toHaveBeenCalled();
         expect(req.payload).toStrictEqual({
+            id: '6386300332f75d17ee9d62bb',
             name: 'Luis',
-            id: expect.any(String),
-            iat: expect.any(Number),
             role: 'user',
+            iat: 1669797771,
         });
     });
 });
