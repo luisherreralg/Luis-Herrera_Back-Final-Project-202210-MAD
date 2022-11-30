@@ -19,11 +19,11 @@ export const orderSchema = new Schema<Order>({
     size: String,
     cartedItem: {
         type: Schema.Types.ObjectId,
-        require,
+        ref: 'Sneaker',
     },
     cartedBy: {
         type: Schema.Types.ObjectId,
-        require,
+        ref: 'User',
     },
     amount: Number,
 });

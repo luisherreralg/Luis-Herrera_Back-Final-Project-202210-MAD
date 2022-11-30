@@ -16,7 +16,7 @@ export class UserRepository implements UserRepo<User> {
 
     #Model = UserModel;
     private constructor() {
-        debug('instance');
+        debug('instanced');
     }
 
     async post(data: Partial<ProtoUser>): Promise<User> {
