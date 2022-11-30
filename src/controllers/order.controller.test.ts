@@ -16,7 +16,7 @@ describe('Given the OrderController', () => {
     const controller = new OrderController(orderRepo, sneakerRepo, userRepo);
     let req: Partial<ExtraRequest> = {};
     const resp: Partial<Response> = {};
-    resp.status = jest.fn().mockReturnValue(resp);
+    resp.status = jest.fn();
     resp.json = jest.fn();
 
     const next = jest.fn() as NextFunction;
@@ -67,13 +67,15 @@ describe('Given the OrderController', () => {
 
         test('If all the data its okey it should return a the new order', () => {
             req.payload = {
-                id: '6386300332f75d17ee9d62bb',
+                id: '6386300332f75d17ee9d62bc',
                 name: 'Luis',
                 role: 'user',
             };
+
             req.body = {
-                sneakerId: '6386300332f75d17ee9d62bb',
-                quantity: 1,
+                cartedItem: '6386300332f75d17ee9d62bb',
+                cartedBy: '6386300332f75d17ee9d62bb',
+                amount: 0,
             };
             controller.newOrder(req as ExtraRequest, resp as Response, next);
             expect(resp.json).toHaveBeenCalledWith({ orders: mockData[0] });

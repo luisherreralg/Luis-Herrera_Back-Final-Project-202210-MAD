@@ -35,7 +35,6 @@ export class UserController {
 
                 user.password
             );
-
             if (!isPasswdValid) {
                 throw new Error();
             }
