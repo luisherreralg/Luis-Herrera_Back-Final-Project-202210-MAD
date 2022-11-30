@@ -45,11 +45,6 @@ describe('Given the logged interceptor', () => {
         await logged(req as ExtraRequest, res as Response, next);
         expect(next).toHaveBeenCalled();
 
-        console.log(
-            '🚀 ~ file: interceptors.test.ts:49 ~ expect ~ req.payload',
-            req.payload
-        );
-
         expect(req.payload).toStrictEqual({
             id: expect.any(String),
             iat: expect.any(Number),
