@@ -9,7 +9,6 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
     const repo = SneakerRepository.getInstance();
     let testIds: string[];
 
-    // TODO: review lines 64 and 84
     beforeEach(async () => {
         connections.dbConnect();
         testIds = await setUpSneakerCollection();
