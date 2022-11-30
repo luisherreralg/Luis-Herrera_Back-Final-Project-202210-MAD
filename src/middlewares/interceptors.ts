@@ -42,6 +42,7 @@ export const checkRole = async (
         if (!req.payload || req.payload.role !== 'admin') {
             throw new Error('Unauthorized');
         }
+        next();
     } catch (error) {
         next(createHttpError(error as Error));
     }

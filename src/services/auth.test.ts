@@ -20,7 +20,7 @@ describe('Given getSecretWord service', () => {
         test('Then an error should be throw', () => {
             expect(() => {
                 getSecretWord('');
-            }).toThrowError();
+            }).toThrowError('Bad Secret for token creation');
         });
     });
 });

@@ -6,12 +6,14 @@ describe('Given the createHttpError function', () => {
             const mockError = new Error('Not found id');
             const result = createHttpError(mockError);
             expect(result.statusMessage.toString()).toEqual('Not found');
+            expect(result.statusCode).toEqual(404);
         });
 
         test('Then when the error passed to the function has a "Unauthorized" message it should return an http error with a statusMessage = "Unauthorized"', () => {
             const mockError = new Error('Unauthorized');
             const result = createHttpError(mockError);
             expect(result.statusMessage.toString()).toEqual('Unauthorized');
+            expect(result.statusCode).toEqual(401);
         });
 
         test('Then when the error passed to the function has a standard message it should return an http error with a statusMessage = "Service unavailable"', () => {
