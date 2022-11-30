@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+import { OrderModel, ProtoOrder } from '../../entities/order.js';
 import { ProtoSneaker, SneakerModel } from '../../entities/sneaker.js';
 import { ProtoUser, UserModel } from '../../entities/user.js';
 import { DbConnections } from '../db/db.connections.js';
@@ -65,3 +67,30 @@ export const mockError = {
     statusCode: 503,
     statusMessage: 'Service unavailable',
 };
+
+export const mockOrders: ProtoOrder[] = [
+    {
+        size: '40.5',
+        cartedItem: new Types.ObjectId(),
+        cartedBy: new Types.ObjectId(),
+        amount: 0,
+    },
+    {
+        size: '41',
+        cartedItem: new Types.ObjectId(),
+        cartedBy: new Types.ObjectId(),
+        amount: 2,
+    },
+];
+
+export async function setUpOrderCollection() {
+    await connections.dbConnect();
+    await OrderModel.deleteMany();
+    await OrderModel.insertMany(mockOrders);
+    const data = await OrderModel.find();
+    return {
+        orderIds: [data[0].id, data[1].id],
+        userIds: [data[0].cartedBy, data[1].cartedBy],
+        sneakerIds: [data[0].cartedItem, data[1].cartedItem],
+    };
+}

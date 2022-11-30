@@ -1,6 +1,6 @@
 import { model, Schema, Types } from 'mongoose';
 
-type Sizes =
+export type Sizes =
     | '40'
     | '40.5'
     | '41'
@@ -51,7 +51,6 @@ sneakerSchema.set('toJSON', {
         returnedObject.id = returnedObject._id;
         delete returnedObject.__v;
         delete returnedObject._id;
-        delete returnedObject.passwd;
     },
 });
 
