@@ -12,7 +12,8 @@ const debug = createDebug('SERVER:src:controllers:orderController');
 
 export class OrderController {
     constructor(
-        public readonly repository: OrderRepo<Order>,
+        // TODO: Use the generic type to avoid the any type
+        public readonly repository: any,
         public readonly sneakerRepo: Repo<Sneaker>,
         public readonly userRepo: UserRepo<User>
     ) {
@@ -43,9 +44,10 @@ export class OrderController {
             debug('newOrder controller');
 
             // Check here if the logger middleware pass to this method the user id
-            if (!req.payload) {
+            if (!req.payload || req.payload === undefined) {
                 throw new Error('Invalid payload');
             }
+
             // Find the user passed by the logger
             const user = await this.userRepo.find({ id: req.payload.id });
 
