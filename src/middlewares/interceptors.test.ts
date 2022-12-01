@@ -13,7 +13,7 @@ describe('Given the logged interceptor', () => {
 
             logged(req as Request, res as Response, next);
             expect(next).toHaveBeenCalledWith(
-                createHttpError(new Error('Not logged'))
+                createHttpError(new Error('Wrong credentials'))
             );
         });
     });
