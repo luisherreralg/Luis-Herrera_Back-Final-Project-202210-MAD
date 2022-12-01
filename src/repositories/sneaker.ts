@@ -28,17 +28,14 @@ export class SneakerRepository implements Repo<Sneaker> {
         return result;
     }
 
-    // ! NEED TO CHECK
-    // * Found the $or operator on
-    // https://stackoverflow.com/questions/33627238/mongoose-find-with-multiple-conditions
-    //
-    // TODO: read more about regex
-    // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
-
     search = async (query: string): Promise<Array<Sneaker>> => {
         debug('search', query);
         const result = await this.#Model.find({
-            $or: [{ brand: query }, { model: query }, { gender: query }],
+            $or: [
+                { brand: { $regex: query, $options: 'i' } },
+                { model: { $regex: query, $options: 'i' } },
+                { gender: { $regex: query, $options: 'i' } },
+            ],
         });
 
         if (result.length === 0) {

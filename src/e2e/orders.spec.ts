@@ -117,7 +117,6 @@ describe('Given the app with the "/orders" route', () => {
                 size: '50',
                 cartedItem: new Types.ObjectId(),
                 cartedBy: usersIds[0],
-                amount: 0,
             });
 
             await request(app)

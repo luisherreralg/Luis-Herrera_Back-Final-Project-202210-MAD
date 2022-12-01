@@ -75,7 +75,6 @@ describe('Given the OrderController', () => {
             req.body = {
                 cartedItem: '6386300332f75d17ee9d62bb',
                 cartedBy: '6386300332f75d17ee9d62bb',
-                amount: 0,
             };
             controller.newOrder(req as ExtraRequest, resp as Response, next);
             expect(resp.json).toHaveBeenCalledWith({ orders: mockData[0] });

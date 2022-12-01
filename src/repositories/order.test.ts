@@ -54,7 +54,6 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
             size: '50',
             cartedItem: new Types.ObjectId(),
             cartedBy: new Types.ObjectId(),
-            amount: 0,
         };
 
         test('Then it should return the order created', async () => {
@@ -99,18 +98,17 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
         });
 
         test('Then if there is no existing products it should return an error', async () => {
+            //Pending test
             // await OrderModel.insertMany([
             //     {
             //         size: '50',
             //         cartedItem: new Types.ObjectId(),
             //         cartedBy: testIds.userIds[0],
-            //         amount: 0,
             //     },
             //     {
             //         size: '40',
             //         cartedItem: new Types.ObjectId(),
             //         cartedBy: testIds.userIds[0],
-            //         amount: 0,
             //     },
             // ]);
 
@@ -119,7 +117,6 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
                     size: '50',
                     cartedItem: new Types.ObjectId(),
                     cartedBy: testIds.userIds[0],
-                    amount: 0,
                 },
             ]);
 
@@ -142,13 +139,11 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
 //             size: '50',
 //             cartedItem: new Types.ObjectId(),
 //             cartedBy: testIds.userIds[0],
-//             amount: 0,
 //         },
 //         {
 //             size: '40',
 //             cartedItem: new Types.ObjectId(),
 //             cartedBy: testIds.userIds[0],
-//             amount: 0,
 //         },
 //     ]);
 
