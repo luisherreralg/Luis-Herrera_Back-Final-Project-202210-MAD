@@ -47,8 +47,8 @@ export class OrderRepository {
             cartedBy: userId,
         });
 
-        if (userOrders[0] === undefined) {
-            throw new Error('There is no orders associated to this user');
+        if (userOrders.length === 0) {
+            throw new Error('Not found');
         }
 
         debug('userOrders', userOrders);
@@ -58,10 +58,8 @@ export class OrderRepository {
             return order.cartedItem.toString() === itemId.toString();
         });
 
-        if (orderToDelete[0] === undefined) {
-            throw new Error(
-                'There is no orders for this user associated to this product'
-            );
+        if (orderToDelete.length === 0) {
+            throw new Error('Not found');
         }
         debug('orderToDelete', orderToDelete);
 

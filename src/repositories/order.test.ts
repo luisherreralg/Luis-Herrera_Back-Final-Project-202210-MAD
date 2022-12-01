@@ -97,19 +97,30 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
 
         test('Then if there is no existing products it should return an error', async () => {
             await OrderModel.deleteMany();
-            await OrderModel.insertMany({
-                size: '50',
-                cartedItem: new Types.ObjectId(),
-                cartedBy: testIds.userIds[0],
-                amount: 0,
-            });
+
+            await OrderModel.insertMany([
+                {
+                    size: '50',
+                    cartedItem: new Types.ObjectId(),
+                    cartedBy: testIds.userIds[0],
+                    amount: 0,
+                },
+                {
+                    size: '40',
+                    cartedItem: new Types.ObjectId(),
+                    cartedBy: testIds.userIds[0],
+                    amount: 0,
+                },
+            ]);
 
             expect(async () => {
                 await repo.delete(
                     testIds.userIds[0].toString(),
                     testIds.sneakerIds[0].toString()
                 );
-            }).rejects.toThrow();
+            }).rejects.toThrowError(
+                'Attempted to check out a connection from closed connection pool'
+            );
         });
     });
 });

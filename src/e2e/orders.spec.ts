@@ -105,9 +105,24 @@ describe('Given the app with the "/orders" route', () => {
 
         test('If there is no orders associated to the user it must return a status = 406', async () => {
             await OrderModel.deleteMany();
+
             await request(app)
                 .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
                 .expect(406);
+        });
+
+        test('If there is no products associated to the user it must return a status = 406', async () => {
+            await OrderModel.deleteMany();
+            await OrderModel.insertMany({
+                size: '50',
+                cartedItem: new Types.ObjectId(),
+                cartedBy: usersIds[0],
+                amount: 0,
+            });
+
+            await request(app)
+                .delete(`/orders/delete/${usersIds[0]}/`)
+                .expect(404);
         });
     });
 });

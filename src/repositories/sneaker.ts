@@ -51,7 +51,7 @@ export class SneakerRepository implements Repo<Sneaker> {
         debug('get', id);
         const result = await this.#Model.findById(id);
         if (!result) {
-            throw new Error('Not found id');
+            throw new Error('Not found');
         }
         return result;
     }
@@ -78,7 +78,7 @@ export class SneakerRepository implements Repo<Sneaker> {
             new: true,
         });
         if (!result) {
-            throw new Error('Not found id');
+            throw new Error('Not found');
         }
         return result;
     }
