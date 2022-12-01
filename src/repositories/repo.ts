@@ -1,3 +1,6 @@
+import { Types } from 'mongoose';
+import { Order, ProtoOrder } from '../entities/order';
+
 export type id = number | string;
 
 export interface BasicRepo<T> {
@@ -24,8 +27,11 @@ export interface UserRepo<T> {
     search: (query: string) => Promise<Array<T>>;
 }
 
+export type findData = {
+    cartedBy: Types.ObjectId;
+};
 export interface OrderRepo<T> {
-    find: (data: Partial<T>) => Promise<T>;
-    post: (data: Partial<T>) => Promise<T>;
+    find: (data: findData) => Promise<Array<Order>>;
+    post: (data: ProtoOrder) => Promise<Order>;
     delete: (userId: string, itemId: string) => Promise<T>;
 }

@@ -29,22 +29,22 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
 
     describe('When find its invoked', () => {
         test('Then it should return the order associated to the order id', async () => {
-            const result = await repo.find(
-                new Types.ObjectId(testIds.orderIds[0])
-            );
+            const result = await repo.find({ cartedBy: testIds.userIds[0] });
             expect(result.length).toBe(1);
         });
 
         test('Then if the user has no orders, it should return an error', async () => {
             expect(async () => {
-                await repo.find(new Types.ObjectId('638039af92303fd9b7a0cace'));
+                await repo.find({
+                    cartedBy: new Types.ObjectId('638039af92303fd9b7a0cace'),
+                });
             }).rejects.toThrow();
         });
 
         test('Then if it cant connect, it should return an error', () => {
             connections.dbDisconnect();
             expect(async () => {
-                await repo.find(testIds.orderIds[0]);
+                await repo.find({ cartedBy: testIds.userIds[0] });
             }).rejects.toThrow();
         });
     });
@@ -133,7 +133,7 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
     });
 });
 
-// ! BackupTest just in case
+// ! BackupTest just
 // test('Then if there is no existing products it should return an error', async () => {
 //     await OrderModel.deleteMany();
 

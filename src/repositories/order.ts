@@ -1,6 +1,7 @@
 import createDebug from 'debug';
 import { Types } from 'mongoose';
 import { Order, OrderModel, ProtoOrder } from '../entities/order.js';
+import { findData } from './repo.js';
 
 const debug = createDebug('SERVER:src:repositories:OrderRepository');
 
@@ -19,10 +20,10 @@ export class OrderRepository {
         debug('instanced');
     }
 
-    async find(id: Types.ObjectId): Promise<Array<Order>> {
-        debug('find', { id });
+    async find(data: findData): Promise<Array<Order>> {
+        debug('find', { data });
         const result = await this.#Model
-            .find(id)
+            .find(data)
             .populate<{ _id: Types.ObjectId }>('cartedBy')
             .populate<{ _id: Types.ObjectId }>('cartedItem');
 
