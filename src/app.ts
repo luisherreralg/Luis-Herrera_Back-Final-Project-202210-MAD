@@ -19,9 +19,9 @@ app.use(express.json());
 
 app.use(setCors);
 
-const template = 'Work in progress';
-app.get('/', (_req, res) => {
-    res.send(template).end();
+app.get('/', (_req, resp) => {
+    app.use(express.static('public'));
+    resp.sendFile('index.html', { root: './public' });
 });
 
 app.use('/sneakers', sneakersRouter);
