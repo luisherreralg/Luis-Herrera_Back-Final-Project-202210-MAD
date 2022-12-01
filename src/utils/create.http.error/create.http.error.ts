@@ -1,7 +1,7 @@
 import { HTTPError } from '../../interfaces/error.js';
 
 export const createHttpError = (error: Error) => {
-    if ((error as Error).message === 'Not found id') {
+    if ((error as Error).message === 'Not found') {
         const httpError = new HTTPError(
             404,
             'Not found',

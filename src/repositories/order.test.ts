@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { OrderModel } from '../entities/order';
 import { DbConnections } from '../utils/db/db.connections';
 import { mockOrders, setUpOrderCollection } from '../utils/mocks/mocks';
 import { OrderRepository } from './order';
@@ -14,8 +15,11 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
         sneakerIds: Types.ObjectId[];
     };
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         connections.dbConnect();
+    });
+
+    beforeEach(async () => {
         testIds = await setUpOrderCollection();
     });
 
@@ -24,16 +28,12 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
     });
 
     describe('When find its invoked', () => {
-        // TODO: Fix this test
-        // test('Then it should return the orders owned by a user', async () => {
-        //     console.log(
-        //         "🚀 ~ file: order.test.ts:29 ~ OrderRepository', ~ test ~ testIds.userIds[0]",
-        //         testIds.userIds[0]
-        //     );
-
-        //     const result = await repo.find(testIds.userIds[0]);
-        //     expect(result.length).toBe(2);
-        // });
+        test('Then it should return the order associated to the order id', async () => {
+            const result = await repo.find(
+                new Types.ObjectId(testIds.orderIds[0])
+            );
+            expect(result.length).toBe(1);
+        });
 
         test('Then if the user has no orders, it should return an error', async () => {
             expect(async () => {
@@ -87,5 +87,77 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
                 );
             }).rejects.toThrow();
         });
+
+        test('Then if there is no existing orders it should return an error', async () => {
+            await OrderModel.deleteMany();
+            expect(async () => {
+                await repo.delete(
+                    testIds.userIds[0].toString(),
+                    testIds.sneakerIds[0].toString()
+                );
+            }).rejects.toThrow();
+        });
+
+        test('Then if there is no existing products it should return an error', async () => {
+            // await OrderModel.insertMany([
+            //     {
+            //         size: '50',
+            //         cartedItem: new Types.ObjectId(),
+            //         cartedBy: testIds.userIds[0],
+            //         amount: 0,
+            //     },
+            //     {
+            //         size: '40',
+            //         cartedItem: new Types.ObjectId(),
+            //         cartedBy: testIds.userIds[0],
+            //         amount: 0,
+            //     },
+            // ]);
+
+            repo.find = jest.fn().mockResolvedValue([
+                {
+                    size: '50',
+                    cartedItem: new Types.ObjectId(),
+                    cartedBy: testIds.userIds[0],
+                    amount: 0,
+                },
+            ]);
+
+            expect(async () => {
+                await repo.delete(
+                    testIds.userIds[0].toString(),
+                    testIds.sneakerIds[0].toString()
+                );
+            }).rejects.toThrow();
+        });
     });
 });
+
+// ! BackupTest just in case
+// test('Then if there is no existing products it should return an error', async () => {
+//     await OrderModel.deleteMany();
+
+//     await OrderModel.insertMany([
+//         {
+//             size: '50',
+//             cartedItem: new Types.ObjectId(),
+//             cartedBy: testIds.userIds[0],
+//             amount: 0,
+//         },
+//         {
+//             size: '40',
+//             cartedItem: new Types.ObjectId(),
+//             cartedBy: testIds.userIds[0],
+//             amount: 0,
+//         },
+//     ]);
+
+//     expect(async () => {
+//         await repo.delete(
+//             testIds.userIds[0].toString(),
+//             testIds.sneakerIds[0].toString()
+//         );
+//     }).rejects.toThrowError(
+//         'Attempted to check out a connection from closed connection pool'
+//     );
+// });

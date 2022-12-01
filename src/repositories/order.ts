@@ -19,10 +19,10 @@ export class OrderRepository {
         debug('instanced');
     }
 
-    async find(userId: Types.ObjectId): Promise<Array<Order>> {
-        debug('find', { userId });
+    async find(id: Types.ObjectId): Promise<Array<Order>> {
+        debug('find', { id });
         const result = await this.#Model
-            .find(userId)
+            .find(id)
             .populate<{ _id: Types.ObjectId }>('cartedBy')
             .populate<{ _id: Types.ObjectId }>('cartedItem');
 
@@ -46,20 +46,18 @@ export class OrderRepository {
         const userOrders = await this.#Model.find({
             cartedBy: userId,
         });
-        if (userOrders[0] === undefined) {
-            throw new Error('There is no orders associated to this user');
+
+        if (userOrders.length === 0) {
+            throw new Error('Not found');
         }
+
         debug('userOrders', userOrders);
 
         // When we have the user orders, now we do a filter to get the order for the product
         const orderToDelete = userOrders.filter((order) => {
             return order.cartedItem.toString() === itemId.toString();
         });
-        if (orderToDelete[0] === undefined) {
-            throw new Error(
-                'There is no orders for this user associated to this product'
-            );
-        }
+
         debug('orderToDelete', orderToDelete);
 
         // Once we have the product that we want to delete, we just delete it
