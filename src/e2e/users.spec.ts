@@ -3,7 +3,6 @@ import { DbConnections } from '../utils/db/db.connections';
 import { mockUsers, setUpUserCollection } from '../utils/mocks/mocks';
 import request from 'supertest';
 import { app } from '../app';
-import { PASSWORD } from '../config';
 
 describe('Given the "app" with the "/users" route', () => {
     let token: string;
