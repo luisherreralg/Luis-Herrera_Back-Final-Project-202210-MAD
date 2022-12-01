@@ -1,7 +1,6 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { Sneaker } from '../entities/sneaker.js';
-import { HTTPError } from '../interfaces/error.js';
 import { Repo } from '../repositories/repo.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
@@ -20,12 +19,7 @@ export class SneakerController {
             resp.status(201);
             resp.json({ sneakers });
         } catch (error) {
-            const httpError = new HTTPError(
-                503,
-                'Service unavailable',
-                (error as Error).message
-            );
-            next(httpError);
+            next(createHttpError(error as Error));
         }
     }
 
@@ -42,7 +36,12 @@ export class SneakerController {
 
     async search(req: Request, resp: Response, next: NextFunction) {
         try {
-            debug('search controller using repository search');
+            debug(
+                'search controller using repository search',
+                'query ->',
+                req.params.query
+            );
+
             const sneakers = await this.repository.search(req.params.query);
             resp.status(201);
             resp.json({ sneakers });
@@ -58,12 +57,7 @@ export class SneakerController {
             resp.status(201);
             resp.json({ sneaker });
         } catch (error) {
-            const httpError = new HTTPError(
-                503,
-                'Service unavailable',
-                (error as Error).message
-            );
-            next(httpError);
+            next(createHttpError(error as Error));
         }
     }
 

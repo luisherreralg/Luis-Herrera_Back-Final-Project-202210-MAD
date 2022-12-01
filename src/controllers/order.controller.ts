@@ -12,7 +12,7 @@ const debug = createDebug('SERVER:src:controllers:orderController');
 export class OrderController {
     constructor(
         // TODO: Use the generic type to avoid the any type
-        public readonly repository: any,
+        public readonly repository: any, // =D
         public readonly sneakerRepo: Repo<Sneaker>,
         public readonly userRepo: UserRepo<User>
     ) {
@@ -32,6 +32,7 @@ export class OrderController {
                 cartedBy: new mongoose.Types.ObjectId(req.payload.id),
             });
 
+            resp.status(201);
             resp.json({ orders });
         } catch (error) {
             next(createHttpError(error as Error));
@@ -42,7 +43,7 @@ export class OrderController {
         try {
             debug('newOrder controller');
 
-            // Check here if the logger middleware pass to this method the user id
+            // I check here if the logger middleware pass to this method the user id
             if (!req.payload || req.payload === undefined) {
                 throw new Error('Invalid payload');
             }
@@ -57,6 +58,7 @@ export class OrderController {
             // Post the new order with the two ids
             const order = await this.repository.post(req.body);
 
+            resp.status(201);
             resp.json({ order });
         } catch (error) {
             next(createHttpError(error as Error));
@@ -72,6 +74,7 @@ export class OrderController {
                 req.params.itemId
             );
 
+            resp.status(201);
             resp.json({ order });
         } catch (error) {
             next(createHttpError(error as Error));

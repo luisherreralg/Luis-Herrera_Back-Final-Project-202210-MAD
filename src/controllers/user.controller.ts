@@ -15,6 +15,7 @@ export class UserController {
     async register(req: Request, resp: Response, next: NextFunction) {
         try {
             debug('register controller using repository register');
+
             const user = await this.repository.post(req.body);
             resp.status(201).json({ user });
         } catch (error) {
@@ -32,12 +33,11 @@ export class UserController {
 
             const isPasswdValid = await validatePassword(
                 req.body.password,
-
                 user.password
             );
 
             if (!isPasswdValid) {
-                throw new Error();
+                throw new Error('Wrong credentials');
             }
             const token = generateToken({
                 id: user.id.toString(),

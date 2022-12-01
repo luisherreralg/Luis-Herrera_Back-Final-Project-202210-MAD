@@ -3,8 +3,11 @@ import mongoose from 'mongoose';
 import { User } from '../entities/user';
 import { HTTPError } from '../interfaces/error';
 import { UserRepository } from '../repositories/user';
+import { generateToken, validatePassword } from '../services/auth';
 import { mockUsers } from '../utils/mocks/mocks';
 import { UserController } from './user.controller';
+
+jest.mock('../services/auth');
 
 describe('Given the user controller', () => {
     const mockData = mockUsers;
@@ -72,7 +75,7 @@ describe('Given the user controller', () => {
             expect(next).toHaveBeenCalledWith(new Error('Error'));
         });
 
-        test('If the req password is invalid it should throw an error', () => {
+        test('If the req password is malformed it should throw an error', () => {
             repo.find = jest.fn().mockResolvedValue({
                 ...(mockData[0] as User),
                 id: new mongoose.Types.ObjectId(),
@@ -82,6 +85,25 @@ describe('Given the user controller', () => {
             expect(next).toHaveBeenCalledWith(
                 new HTTPError(401, 'Error', 'Error')
             );
+        });
+
+        // TODO: trying to pass lines 29-48
+        test('If the req password is not valid it should throw an error', async () => {
+            (validatePassword as jest.Mock).mockResolvedValue(false);
+            await controller.login(req as Request, resp as Response, next);
+            expect(next).toHaveBeenCalledWith(
+                new HTTPError(401, 'Error', 'Error')
+            );
+        });
+
+        test('Test generate token function', () => {
+            (generateToken as jest.Mock).mockReturnValue('token');
+            const token = generateToken({
+                id: 'id',
+                name: 'name',
+                role: 'role',
+            });
+            expect(token).toBe('token');
         });
     });
 });

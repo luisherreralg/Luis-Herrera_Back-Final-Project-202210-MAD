@@ -17,8 +17,8 @@ export const logged = (
     const authString = req.get('Authorization');
 
     if (!authString || !authString.startsWith('Bearer ')) {
-        debug('Not Logged');
-        next(createHttpError(new Error('Not logged')));
+        debug('Wrong credentials');
+        next(createHttpError(new Error('Wrong credentials')));
         return;
     }
 
