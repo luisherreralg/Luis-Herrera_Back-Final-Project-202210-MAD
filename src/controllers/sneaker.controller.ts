@@ -1,7 +1,6 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { Sneaker } from '../entities/sneaker.js';
-import { HTTPError } from '../interfaces/error.js';
 import { Repo } from '../repositories/repo.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 

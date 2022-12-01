@@ -9,7 +9,6 @@ describe('Given the app with the "/orders" route', () => {
     let token: string;
     let sneakerIds: string[];
     let usersIds: string[];
-    let ordersIds: string[];
     let allIds: {
         orderIds: Types.ObjectId[];
         userIds: Types.ObjectId[];
@@ -26,7 +25,6 @@ describe('Given the app with the "/orders" route', () => {
         allIds = await setUpOrderCollection();
         sneakerIds = allIds.sneakerIds.map((id) => id.toString());
         usersIds = allIds.userIds.map((id) => id.toString());
-        ordersIds = allIds.orderIds.map((id) => id.toString());
         token = generateToken(payloadMock(usersIds[0]));
     });
 

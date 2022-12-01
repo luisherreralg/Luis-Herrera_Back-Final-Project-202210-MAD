@@ -2,7 +2,6 @@ import { Types } from 'mongoose';
 import { OrderModel, ProtoOrder } from '../../entities/order.js';
 import { ProtoSneaker, SneakerModel } from '../../entities/sneaker.js';
 import { ProtoUser, UserModel } from '../../entities/user.js';
-import { encryptPassword } from '../../services/auth.js';
 import { DbConnections } from '../db/db.connections.js';
 
 const connections = DbConnections.getInstance();

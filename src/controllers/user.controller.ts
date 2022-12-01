@@ -2,11 +2,7 @@ import { User } from '../entities/user.js';
 import { UserRepo } from '../repositories/repo.js';
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import {
-    encryptPassword,
-    generateToken,
-    validatePassword,
-} from '../services/auth.js';
+import { generateToken, validatePassword } from '../services/auth.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
 const debug = createDebug('SERVER:src:controllers:userController');

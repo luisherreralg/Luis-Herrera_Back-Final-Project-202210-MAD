@@ -6,7 +6,6 @@ import { app } from '../app';
 
 describe('Given the "app" with the "/users" route', () => {
     let token: string;
-    let userIds: string[];
     const connections = DbConnections.getInstance();
 
     beforeAll(async () => {
@@ -14,7 +13,7 @@ describe('Given the "app" with the "/users" route', () => {
     });
 
     beforeEach(async () => {
-        userIds = await setUpUserCollection();
+        await setUpUserCollection();
     });
 
     afterAll(async () => {
@@ -54,10 +53,7 @@ describe('Given the "app" with the "/users" route', () => {
 
         test('If the password is wrong it should return a status = 406', async () => {
             loginData.password = 'wrongPassword';
-            await await request(app)
-                .post('/users/login')
-                .send(loginData)
-                .expect(406);
+            await request(app).post('/users/login').send(loginData).expect(406);
         });
 
         test('If the email is not correct it should return a status = 503', async () => {
