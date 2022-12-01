@@ -22,6 +22,10 @@ export class UserRepository implements UserRepo<User> {
     async post(data: Partial<ProtoUser>): Promise<User> {
         debug('post', data);
 
+        if (Object.keys(data).length === 0) {
+            throw new Error('No data provided');
+        }
+
         data.password = await encryptPassword(data.password as string);
         const result = await this.#Model.create(data);
         return result;

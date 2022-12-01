@@ -36,7 +36,7 @@ export class SneakerRepository implements Repo<Sneaker> {
     // https://www.mongodb.com/docs/manual/reference/operator/query/regex/
 
     search = async (query: string): Promise<Array<Sneaker>> => {
-        debug('search');
+        debug('search', query);
         const result = await this.#Model.find({
             $or: [{ brand: query }, { model: query }, { gender: query }],
         });
@@ -58,12 +58,22 @@ export class SneakerRepository implements Repo<Sneaker> {
 
     async post(data: ProtoSneaker): Promise<Sneaker> {
         debug('post', data);
+
+        if (Object.keys(data).length === 0) {
+            throw new Error('No data provided');
+        }
+
         const result = await this.#Model.create(data);
         return result;
     }
 
     async patch(id: id, data: Partial<Sneaker>): Promise<Sneaker> {
         debug('patch', id);
+
+        if (Object.keys(data).length === 0) {
+            throw new Error('No data provided');
+        }
+
         const result = await this.#Model.findByIdAndUpdate(id, data, {
             new: true,
         });

@@ -20,12 +20,7 @@ export class SneakerController {
             resp.status(201);
             resp.json({ sneakers });
         } catch (error) {
-            const httpError = new HTTPError(
-                503,
-                'Service unavailable',
-                (error as Error).message
-            );
-            next(httpError);
+            next(createHttpError(error as Error));
         }
     }
 
@@ -42,7 +37,12 @@ export class SneakerController {
 
     async search(req: Request, resp: Response, next: NextFunction) {
         try {
-            debug('search controller using repository search');
+            debug(
+                'search controller using repository search',
+                'query ->',
+                req.params.query
+            );
+
             const sneakers = await this.repository.search(req.params.query);
             resp.status(201);
             resp.json({ sneakers });
@@ -58,12 +58,7 @@ export class SneakerController {
             resp.status(201);
             resp.json({ sneaker });
         } catch (error) {
-            const httpError = new HTTPError(
-                503,
-                'Service unavailable',
-                (error as Error).message
-            );
-            next(httpError);
+            next(createHttpError(error as Error));
         }
     }
 

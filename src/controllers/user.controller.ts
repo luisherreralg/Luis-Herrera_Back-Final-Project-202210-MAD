@@ -2,7 +2,11 @@ import { User } from '../entities/user.js';
 import { UserRepo } from '../repositories/repo.js';
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
-import { generateToken, validatePassword } from '../services/auth.js';
+import {
+    encryptPassword,
+    generateToken,
+    validatePassword,
+} from '../services/auth.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
 const debug = createDebug('SERVER:src:controllers:userController');
@@ -15,6 +19,7 @@ export class UserController {
     async register(req: Request, resp: Response, next: NextFunction) {
         try {
             debug('register controller using repository register');
+
             const user = await this.repository.post(req.body);
             resp.status(201).json({ user });
         } catch (error) {
@@ -32,11 +37,11 @@ export class UserController {
 
             const isPasswdValid = await validatePassword(
                 req.body.password,
-
                 user.password
             );
+
             if (!isPasswdValid) {
-                throw new Error();
+                throw new Error('Wrong credentials');
             }
             const token = generateToken({
                 id: user.id.toString(),
