@@ -58,9 +58,6 @@ export class OrderRepository {
             return order.cartedItem.toString() === itemId.toString();
         });
 
-        if (orderToDelete.length === 0) {
-            throw new Error('Not found');
-        }
         debug('orderToDelete', orderToDelete);
 
         // Once we have the product that we want to delete, we just delete it
