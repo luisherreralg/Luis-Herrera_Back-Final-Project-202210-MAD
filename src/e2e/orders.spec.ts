@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 import request from 'supertest';
 import { app } from '../app';
+import { OrderModel } from '../entities/order';
 import { generateToken } from '../services/auth';
 import { DbConnections } from '../utils/db/db.connections';
 import { payloadMock, setUpOrderCollection } from '../utils/mocks/mocks';
@@ -97,6 +98,13 @@ describe('Given the app with the "/orders" route', () => {
         });
 
         test('If there is no auth it must return a status = 406', async () => {
+            await request(app)
+                .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
+                .expect(406);
+        });
+
+        test('If there is no orders associated to the user it must return a status = 406', async () => {
+            await OrderModel.deleteMany();
             await request(app)
                 .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
                 .expect(406);
