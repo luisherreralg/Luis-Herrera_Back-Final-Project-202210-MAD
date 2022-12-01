@@ -87,7 +87,6 @@ describe('Given the user controller', () => {
             );
         });
 
-        // TODO: trying to pass lines 29-48
         test('If the req password is not valid it should throw an error', async () => {
             (validatePassword as jest.Mock).mockResolvedValue(false);
             await controller.login(req as Request, resp as Response, next);

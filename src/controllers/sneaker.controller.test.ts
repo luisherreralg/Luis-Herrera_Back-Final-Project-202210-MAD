@@ -10,8 +10,6 @@ describe('Given the sneaker controller', () => {
     let next: NextFunction;
     const mockResponse = { sneakers: ['sneaker'] };
 
-    // TODO: Preguntar a Sergio
-    //No funciona con beforeAll
     beforeAll(() => {
         repo = SneakerRepository.getInstance();
         repo.getAll = jest.fn().mockResolvedValue(['sneaker']);
