@@ -25,7 +25,7 @@ export interface UserRepo<T> {
 }
 
 export interface OrderRepo<T> {
-    find: (userId: Partial<T>) => Promise<Array<T>>;
+    find: (data: Partial<T>) => Promise<T>;
     post: (data: Partial<T>) => Promise<T>;
     delete: (userId: string, itemId: string) => Promise<T>;
 }
