@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Disi Sneakers [Back]</title>
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+        <link
+            rel="shortcut icon"
+            href="assets/favicon.ico"
+            type="image/x-icon"
+        />
+    </head>
+    <body>
+        <header class="Header">
+            <img src="assets/logo-web-beige.png" alt="Disi brand logo" />
+            <h1>Disi Sneakers Back</h1>
+        </header>
+        <main>
+            <div class="SneakerEndpoints">
+                <h2>Sneakers</h2>
+                <ul>
+                    <li>
+                        <p>
+                            <color>/</color> <br />
+                            get -> all the sneakers
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/</color> <br />
+                            post (admin) -> create a new sneaker
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/search/:query</color> <br />
+                            get -> search for brand, model and gender (for the
+                            front filters)
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/:id</color> <br />
+                            get -> brings a sneaker item by his id
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/:id</color> <br />
+                            delete(admin) -> delete a sneaker by his id
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/:id</color> <br />
+                            patch(admin) -> update the sneaker data
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="UsersEndpoints">
+                <h2>Users</h2>
+                <ul>
+                    <li>
+                        <p>
+                            <color>/register</color> <br />
+                            post -> create a new user
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/login</color> <br />
+                            post -> check if the user credentials are valid and
+                            returns a token
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="OrderEndpoints">
+                <h2>Orders</h2>
+                <ul>
+                    <li>
+                        <p>
+                            <color>/cart</color> <br />
+                            get -> brings all the orders associated to the user
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color>/newOrder/:itemId</color> <br />
+                            post -> create new item
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <color> /delete/:userId/:itemId</color> <br />
+                            delete -> Delete the item owned by the user
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </body>
+</html>
