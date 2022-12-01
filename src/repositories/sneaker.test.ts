@@ -61,7 +61,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
 
         test('Then if the query is empty, it should return an error', async () => {
             expect(async () => {
-                await repo.search('');
+                await repo.search(null as unknown as string);
             }).rejects.toThrow();
         });
     });
