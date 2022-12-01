@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 import { OrderModel, ProtoOrder } from '../../entities/order.js';
 import { ProtoSneaker, SneakerModel } from '../../entities/sneaker.js';
 import { ProtoUser, UserModel } from '../../entities/user.js';
+import { encryptPassword } from '../../services/auth.js';
 import { DbConnections } from '../db/db.connections.js';
 
 const connections = DbConnections.getInstance();
@@ -42,14 +43,15 @@ export const mockUsers: ProtoUser[] = [
         name: 'Test1Name',
         surname: 'Test1Surname',
         email: 'Test1Email',
-        password: 'Test1Password',
+        password:
+            '$2a$10$h3j8SBMBoq0ANKCBu9jHYuKyVb3PvWrfd2igIf9mFc0QVp2/bi5xW', // Test1Password
         role: 'user',
     },
     {
         name: 'Test2Name',
         surname: 'Test2Surname',
         email: 'Test2Email',
-        password: 'Test2Password',
+        password: 'Test2Password', // Test2Password
         role: 'user',
     },
 ];
@@ -57,6 +59,7 @@ export const mockUsers: ProtoUser[] = [
 export async function setUpUserCollection() {
     await connections.dbConnect();
     await UserModel.deleteMany();
+
     await UserModel.insertMany(mockUsers);
     const data = await UserModel.find();
     return [data[0].id, data[1].id];
@@ -94,3 +97,11 @@ export async function setUpOrderCollection() {
         sneakerIds: [data[0].cartedItem, data[1].cartedItem],
     };
 }
+
+export const payloadMock = (userId: string) => {
+    return {
+        id: userId,
+        name: 'TestName',
+        role: 'admin',
+    };
+};
