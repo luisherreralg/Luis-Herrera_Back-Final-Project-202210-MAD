@@ -6,7 +6,6 @@ import { errorManager } from './middlewares/errors.js';
 import { ordersRouter } from './routers/orders.js';
 import { sneakersRouter } from './routers/sneakers.js';
 import { usersRouter } from './routers/users.js';
-import * as url from 'url';
 
 export const app = express();
 app.disable('x-powered-by');
@@ -20,7 +19,6 @@ app.use(express.json());
 
 app.use(setCors);
 
-// const template = 'Work in progress';
 app.get('/', (_req, resp) => {
     app.use(express.static('public'));
     resp.sendFile('index.html', { root: './public' });
