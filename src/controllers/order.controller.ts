@@ -1,18 +1,18 @@
 import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
+import { Order } from '../entities/order.js';
 import { Sneaker } from '../entities/sneaker.js';
 import { User } from '../entities/user.js';
 import { ExtraRequest } from '../middlewares/interceptors.js';
-import { Repo, UserRepo } from '../repositories/repo.js';
+import { OrderRepo, Repo, UserRepo } from '../repositories/repo.js';
 import { createHttpError } from '../utils/create.http.error/create.http.error.js';
 
 const debug = createDebug('SERVER:src:controllers:orderController');
 
 export class OrderController {
     constructor(
-        // TODO: Use the generic type to avoid the any type
-        public readonly repository: any, // =D
+        public readonly repository: OrderRepo<Order>,
         public readonly sneakerRepo: Repo<Sneaker>,
         public readonly userRepo: UserRepo<User>
     ) {
