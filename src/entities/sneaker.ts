@@ -21,6 +21,7 @@ export type ProtoSneaker = {
     onSale?: boolean;
     stock?: number;
     gender?: 'male' | 'female';
+    images?: string[];
 };
 
 export type Sneaker = {
@@ -33,6 +34,7 @@ export type Sneaker = {
     onSale: boolean;
     stock: number;
     gender: 'male' | 'female';
+    images: string[];
 };
 
 export const sneakerSchema = new Schema<Sneaker>({
@@ -44,6 +46,7 @@ export const sneakerSchema = new Schema<Sneaker>({
     onSale: { type: Boolean, required: true },
     stock: { type: Number, required: true },
     gender: { type: String, required: true },
+    images: { type: [String], required: true },
 });
 
 sneakerSchema.set('toJSON', {
