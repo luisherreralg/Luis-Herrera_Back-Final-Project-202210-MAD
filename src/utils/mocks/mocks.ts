@@ -16,6 +16,7 @@ export const mockSneakers: ProtoSneaker[] = [
         onSale: false,
         stock: 0,
         gender: 'male',
+        images: ['image1', 'image2'],
     },
     {
         brand: 'Test2',
@@ -26,6 +27,7 @@ export const mockSneakers: ProtoSneaker[] = [
         onSale: false,
         stock: 0,
         gender: 'female',
+        images: ['image1', 'image2'],
     },
 ];
 
