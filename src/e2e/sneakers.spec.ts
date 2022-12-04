@@ -90,7 +90,7 @@ describe('Given the "app" with the "/sneakers" route', () => {
             onSalePrice: 0,
             onSale: false,
             stock: 0,
-            gender: 'male',
+            gender: 'hombre',
         };
 
         test('Then if its all okey it should return a response status = 201', async () => {
@@ -136,7 +136,7 @@ describe('Given the "app" with the "/sneakers" route', () => {
             onSalePrice: 0,
             onSale: false,
             stock: 0,
-            gender: 'male',
+            gender: 'hombre',
         };
         test('Then if its all okey it should return a response status = 201', async () => {
             await request(app)

@@ -20,7 +20,7 @@ export type ProtoSneaker = {
     onSalePrice?: number;
     onSale?: boolean;
     stock?: number;
-    gender?: 'male' | 'female';
+    gender?: 'hombre' | 'mujer';
     images?: string[];
 };
 
@@ -33,7 +33,7 @@ export type Sneaker = {
     onSalePrice: number;
     onSale: boolean;
     stock: number;
-    gender: 'male' | 'female';
+    gender: 'hombre' | 'mujer';
     images: string[];
 };
 
