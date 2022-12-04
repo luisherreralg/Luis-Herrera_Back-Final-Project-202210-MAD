@@ -79,10 +79,6 @@ describe('Given the "app" with the "/sneakers" route', () => {
                 .get(`/sneakers/search/${mockSneakers[0].brand}`)
                 .expect(503);
         });
-
-        test('Then if there is not matched results it should return a status = 404', async () => {
-            await request(app).get(`/sneakers/search/${'WRONG'}`).expect(404);
-        });
     });
 
     describe('When we do a post using the post method form the "SneakerController"', () => {

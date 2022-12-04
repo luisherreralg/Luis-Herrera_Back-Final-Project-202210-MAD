@@ -38,9 +38,6 @@ export class SneakerRepository implements Repo<Sneaker> {
             ],
         });
 
-        if (result.length === 0) {
-            throw new Error('No matched results');
-        }
         return result;
     };
 

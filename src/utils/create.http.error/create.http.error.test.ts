@@ -24,12 +24,6 @@ describe('Given the createHttpError function', () => {
             );
         });
 
-        test('Then when the error passed to the function has a standard message it should return an http error with a statusMessage = "No matched results"', () => {
-            const mockError = new Error('No matched results');
-            const result = createHttpError(mockError);
-            expect(result.statusMessage.toString()).toEqual('Not found');
-        });
-
         test('Then when the error passed to the function has a standard message it should return an http error with a statusMessage = "Empty collection"', () => {
             const mockError = new Error('Empty collection');
             const result = createHttpError(mockError);

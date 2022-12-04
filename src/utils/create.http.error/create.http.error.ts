@@ -19,15 +19,6 @@ export const createHttpError = (error: Error) => {
         return httpError;
     }
 
-    if ((error as Error).message === 'No matched results') {
-        const httpError = new HTTPError(
-            404,
-            'Not found',
-            (error as Error).message
-        );
-        return httpError;
-    }
-
     if ((error as Error).message === 'Empty collection') {
         const httpError = new HTTPError(
             404,
