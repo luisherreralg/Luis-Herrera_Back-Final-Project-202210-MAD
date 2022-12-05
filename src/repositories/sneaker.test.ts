@@ -81,7 +81,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
                     size: [],
                     price: 0,
                     onSalePrice: 0,
-                    onSale: false,
+                    onSale: `notOnSale`,
                     stock: 0,
                 });
             }).rejects.toThrow();
