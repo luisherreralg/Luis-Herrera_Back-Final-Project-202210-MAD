@@ -18,7 +18,7 @@ export type ProtoSneaker = {
     size?: Sizes[];
     price?: number;
     onSalePrice?: number;
-    onSale?: boolean;
+    onSale?: 'onSale' | 'notOnSale';
     stock?: number;
     gender?: 'hombre' | 'mujer';
     images?: string[];
@@ -31,7 +31,7 @@ export type Sneaker = {
     size: Sizes[];
     price: number;
     onSalePrice: number;
-    onSale: boolean;
+    onSale: 'onSale' | 'notOnSale';
     stock: number;
     gender: 'hombre' | 'mujer';
     images: string[];
@@ -43,7 +43,7 @@ export const sneakerSchema = new Schema<Sneaker>({
     size: { type: [String], required: true },
     price: { type: Number, required: true },
     onSalePrice: { type: Number, required: true },
-    onSale: { type: Boolean, required: true },
+    onSale: { type: String, required: true },
     stock: { type: Number, required: true },
     gender: { type: String, required: true },
     images: { type: [String], required: true },

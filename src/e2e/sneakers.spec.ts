@@ -88,7 +88,7 @@ describe('Given the "app" with the "/sneakers" route', () => {
             size: ['40'],
             price: 0,
             onSalePrice: 0,
-            onSale: false,
+            onSale: 'notOnSale',
             stock: 0,
             gender: 'hombre',
         };
@@ -134,7 +134,7 @@ describe('Given the "app" with the "/sneakers" route', () => {
             size: ['40'],
             price: 0,
             onSalePrice: 0,
-            onSale: false,
+            onSale: 'notOnSale',
             stock: 0,
             gender: 'hombre',
         };

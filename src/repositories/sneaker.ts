@@ -35,6 +35,7 @@ export class SneakerRepository implements Repo<Sneaker> {
                 { brand: { $regex: query, $options: 'i' } },
                 { model: { $regex: query, $options: 'i' } },
                 { gender: { $regex: query, $options: 'i' } },
+                { onSale: { $regex: query, $options: 'i' } },
             ],
         });
 
