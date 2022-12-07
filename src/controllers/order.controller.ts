@@ -65,12 +65,16 @@ export class OrderController {
         }
     }
 
-    async deleteOrder(req: Request, resp: Response, next: NextFunction) {
+    async deleteOrder(req: ExtraRequest, resp: Response, next: NextFunction) {
         try {
             debug('deleteOrder controller');
 
+            if (!req.payload || req.payload === undefined) {
+                throw new Error('Invalid payload');
+            }
+
             const order = await this.repository.delete(
-                req.params.userId,
+                req.payload.id,
                 req.params.itemId
             );
 
