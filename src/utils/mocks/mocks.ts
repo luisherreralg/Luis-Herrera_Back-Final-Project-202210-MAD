@@ -77,11 +77,13 @@ export const mockOrders: ProtoOrder[] = [
         size: '40.5',
         cartedItem: new Types.ObjectId(),
         cartedBy: new Types.ObjectId(),
+        amount: 1,
     },
     {
         size: '41',
         cartedItem: new Types.ObjectId(),
         cartedBy: new Types.ObjectId(),
+        amount: 1,
     },
 ];
 

@@ -54,6 +54,7 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
             size: '50',
             cartedItem: new Types.ObjectId(),
             cartedBy: new Types.ObjectId(),
+            amount: 0,
         };
 
         test('Then it should return the order created', async () => {

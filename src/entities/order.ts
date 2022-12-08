@@ -4,6 +4,7 @@ export type ProtoOrder = {
     size: string;
     cartedItem: Types.ObjectId;
     cartedBy: Types.ObjectId;
+    amount: number;
 };
 
 export type Order = {
@@ -11,6 +12,7 @@ export type Order = {
     size: string;
     cartedItem: Types.ObjectId;
     cartedBy: Types.ObjectId;
+    amount: number;
 };
 
 export const orderSchema = new Schema<Order>({
@@ -23,6 +25,7 @@ export const orderSchema = new Schema<Order>({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    amount: Number,
 });
 
 orderSchema.set('toJSON', {
