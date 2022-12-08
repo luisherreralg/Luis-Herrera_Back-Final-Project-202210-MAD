@@ -20,6 +20,12 @@ ordersRouter.post(
     controller.newOrder.bind(controller)
 );
 
+ordersRouter.patch(
+    '/updateOrder/:itemId',
+    logged,
+    controller.updateOrder.bind(controller)
+);
+
 ordersRouter.delete(
     '/delete/:itemId',
     logged,
