@@ -63,11 +63,15 @@ export class OrderRepository implements OrderRepo<Order> {
 
         debug('orderToPatch', orderToPatch);
 
-        await this.#Model.findOneAndUpdate({
-            amount: data.amount,
-        });
+        const result = await this.#Model.findByIdAndUpdate(
+            orderToPatch[0]._id,
+            {
+                amount: data.amount,
+            },
+            { new: true }
+        );
 
-        return { amount: data.amount } as Order;
+        return result as Order;
     }
 
     async delete(userId: string, itemId: string): Promise<Order> {
