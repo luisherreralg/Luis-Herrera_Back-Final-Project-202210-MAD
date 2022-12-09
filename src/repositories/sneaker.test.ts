@@ -73,6 +73,14 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
             expect(result.model).toBe(mockData[0].model);
         });
 
+        test('Then if the data is empty, it should return an error', async () => {
+            await SneakerModel.deleteMany();
+
+            expect(async () => {
+                await repo.post({});
+            }).rejects.toThrow();
+        });
+
         test('Then if the data is incorrect, it should return an error', async () => {
             expect(async () => {
                 await repo.post({
@@ -89,7 +97,7 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
     });
 
     describe('When the patch its invoked', () => {
-        test('If the daa is correct, it should return the updated sneaker', async () => {
+        test('If the data is correct, it should return the updated sneaker', async () => {
             const result = await repo.patch(testIds[0], { model: 'Test3' });
             expect(result.model).toBe('Test3');
         });
@@ -97,6 +105,12 @@ describe('Given a singleton instance of the class "SneakerRepository"', () => {
         test('If the data is incorrect, it should return an error', async () => {
             expect(async () => {
                 await repo.patch(testIds[10], { model: 'Test3' });
+            }).rejects.toThrow();
+        });
+
+        it('If the data its empty, it should return an error', async () => {
+            expect(async () => {
+                await repo.patch('638539af92303fd9b7a0cace', {});
             }).rejects.toThrow();
         });
     });

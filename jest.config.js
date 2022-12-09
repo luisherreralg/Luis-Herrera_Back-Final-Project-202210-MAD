@@ -9,5 +9,6 @@ export default {
         'src/app.ts',
         'src/index.ts',
         'src/routes.ts',
+        'src/utils/mocks/mocks.ts',
     ],
 };

@@ -48,9 +48,11 @@ describe('Given the sneaker controller', () => {
     describe('When get is invoked', () => {
         test('Then it should return a json with the sneaker', async () => {
             repo.get = jest.fn().mockResolvedValue('sneaker');
+            req.params = { id: '1' };
+
             await sneakerController.get(req as Request, resp as Response, next);
             expect(resp.status).toHaveBeenCalledWith(201);
-            expect(resp.json).toHaveBeenCalledWith({ sneakers: ['sneaker'] });
+            expect(resp.json).toHaveBeenCalledWith({ sneaker: 'sneaker' });
         });
 
         test('Then it should call next with an error if the repository throws an error', async () => {

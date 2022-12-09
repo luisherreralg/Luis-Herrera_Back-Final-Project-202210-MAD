@@ -6,7 +6,7 @@ describe('Given a singleton instance of the class "DbConnections"', () => {
     const spiConnect = jest.spyOn(mongoose, 'connect');
 
     describe('When the dbConnect method is invoked', () => {
-        afterAll(async () => {
+        afterEach(async () => {
             await mongoose.disconnect();
         });
 
@@ -22,6 +22,14 @@ describe('Given a singleton instance of the class "DbConnections"', () => {
             expect(spiConnect).toHaveBeenCalled();
             expect(typeof result).toBe(typeof mongoose);
             expect(result.connection.db.databaseName).toBe('Sneakers');
+        });
+
+        test('When the NODE_ENV is  "test"', async () => {
+            process.env.NODE_ENV = 'test';
+            const result = await connections.dbConnect();
+            expect(spiConnect).toHaveBeenCalled();
+            expect(typeof result).toBe(typeof mongoose);
+            expect(result.connection.db.databaseName).toBe('SneakersTesting');
         });
     });
 

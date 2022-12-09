@@ -1,11 +1,11 @@
 import createDebug from 'debug';
 import { Types } from 'mongoose';
 import { Order, OrderModel, ProtoOrder } from '../entities/order.js';
-import { findData } from './repo.js';
+import { findData, OrderRepo } from './repo.js';
 
 const debug = createDebug('SERVER:src:repositories:OrderRepository');
 
-export class OrderRepository {
+export class OrderRepository implements OrderRepo<Order> {
     static instance: OrderRepository;
 
     public static getInstance(): OrderRepository {
@@ -38,6 +38,40 @@ export class OrderRepository {
         const result = await this.#Model.create(data);
 
         return result;
+    }
+
+    async patch(
+        userId: string,
+        itemId: string,
+        data: Partial<Order>
+    ): Promise<Order> {
+        debug('patch', { userId, itemId, data });
+
+        const userOrders = await this.#Model.find({
+            cartedBy: userId,
+        });
+
+        if (userOrders.length === 0) {
+            throw new Error('Not found');
+        }
+
+        debug('userOrders', userOrders);
+
+        const orderToPatch = userOrders.filter((order) => {
+            return order.cartedItem.toString() === itemId.toString();
+        });
+
+        debug('orderToPatch', orderToPatch);
+
+        const result = await this.#Model.findByIdAndUpdate(
+            orderToPatch[0]._id,
+            {
+                amount: data.amount,
+            },
+            { new: true }
+        );
+
+        return result as Order;
     }
 
     async delete(userId: string, itemId: string): Promise<Order> {

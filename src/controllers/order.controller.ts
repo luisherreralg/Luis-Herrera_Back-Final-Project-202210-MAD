@@ -1,5 +1,5 @@
 import createDebug from 'debug';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import mongoose from 'mongoose';
 import { Order } from '../entities/order.js';
 import { Sneaker } from '../entities/sneaker.js';
@@ -65,12 +65,37 @@ export class OrderController {
         }
     }
 
-    async deleteOrder(req: Request, resp: Response, next: NextFunction) {
+    async updateOrder(req: ExtraRequest, resp: Response, next: NextFunction) {
+        try {
+            debug('updateOrder controller');
+
+            if (!req.payload || req.payload === undefined) {
+                throw new Error('Invalid payload');
+            }
+
+            const order = await this.repository.patch(
+                req.payload.id,
+                req.params.itemId,
+                req.body
+            );
+
+            resp.status(201);
+            resp.json({ order });
+        } catch (error) {
+            next(createHttpError(error as Error));
+        }
+    }
+
+    async deleteOrder(req: ExtraRequest, resp: Response, next: NextFunction) {
         try {
             debug('deleteOrder controller');
 
+            if (!req.payload || req.payload === undefined) {
+                throw new Error('Invalid payload');
+            }
+
             const order = await this.repository.delete(
-                req.params.userId,
+                req.payload.id,
                 req.params.itemId
             );
 

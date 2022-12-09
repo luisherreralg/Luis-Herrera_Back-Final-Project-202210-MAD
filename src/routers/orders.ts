@@ -13,13 +13,21 @@ const controller = new OrderController(
 );
 
 ordersRouter.get('/cart', logged, controller.getCart.bind(controller));
+
 ordersRouter.post(
     '/newOrder/:itemId',
     logged,
     controller.newOrder.bind(controller)
 );
+
+ordersRouter.patch(
+    '/updateOrder/:itemId',
+    logged,
+    controller.updateOrder.bind(controller)
+);
+
 ordersRouter.delete(
-    '/delete/:userId/:itemId',
+    '/delete/:itemId',
     logged,
     controller.deleteOrder.bind(controller)
 );

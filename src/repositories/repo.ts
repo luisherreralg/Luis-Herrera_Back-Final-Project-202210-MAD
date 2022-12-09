@@ -34,4 +34,5 @@ export interface OrderRepo<T> {
     find: (data: findData) => Promise<Array<Order>>;
     post: (data: ProtoOrder) => Promise<Order>;
     delete: (userId: string, itemId: string) => Promise<T>;
+    patch: (userId: string, itemId: string, data: Partial<T>) => Promise<T>;
 }

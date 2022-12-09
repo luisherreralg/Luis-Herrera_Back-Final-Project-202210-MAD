@@ -39,8 +39,10 @@ export class UserController {
             if (!isPasswdValid) {
                 throw new Error('Wrong credentials');
             }
+
             const token = generateToken({
                 id: user.id.toString(),
+
                 name: user.name,
                 role: user.role,
             });
