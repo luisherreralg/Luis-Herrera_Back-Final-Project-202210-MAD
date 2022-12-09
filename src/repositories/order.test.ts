@@ -98,7 +98,7 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
             }).rejects.toThrow();
         });
 
-        test('Then if there is no existing products it should return an error', async () => {
+        test('Then if there is no existing products it should return an error', () => {
             repo.find = jest.fn().mockResolvedValue([
                 {
                     size: '50',
@@ -111,6 +111,60 @@ describe('Given a singleton instance of the class "OrderRepository"', () => {
                 await repo.delete(
                     testIds.userIds[0].toString(),
                     testIds.sneakerIds[0].toString()
+                );
+            }).rejects.toThrow();
+        });
+    });
+
+    describe('when the patch method is invoked', () => {
+        beforeEach(async () => {
+            testIds = await setUpOrderCollection();
+        });
+
+        it('should return the patched item if all is correct', async () => {
+            const result = await repo.patch(
+                testIds.userIds[0].toString(),
+                testIds.sneakerIds[0].toString(),
+                { amount: 40 }
+            );
+            expect(result.amount).toEqual(40);
+        });
+
+        it('should return an error if the user has no orders', async () => {
+            repo.find = jest.fn().mockResolvedValue([]);
+            expect(async () => {
+                await repo.patch(
+                    new Types.ObjectId('638039af92303fd9b7a0cace').toString(),
+                    testIds.sneakerIds[0].toString(),
+                    { amount: 40 }
+                );
+            }).rejects.toThrow();
+        });
+
+        it('should return an error if there is no existing orders', async () => {
+            await OrderModel.deleteMany();
+            expect(async () => {
+                await repo.patch(
+                    testIds.userIds[0].toString(),
+                    testIds.sneakerIds[0].toString(),
+                    { amount: 40 }
+                );
+            }).rejects.toThrow();
+        });
+
+        it('should return an error if there is no existing products', async () => {
+            repo.find = jest.fn().mockResolvedValue([
+                {
+                    size: '50',
+                    cartedItem: new Types.ObjectId(),
+                    cartedBy: testIds.userIds[0],
+                },
+            ]);
+            expect(async () => {
+                await repo.patch(
+                    testIds.userIds[0].toString(),
+                    testIds.sneakerIds[0].toString(),
+                    { amount: 40 }
                 );
             }).rejects.toThrow();
         });
