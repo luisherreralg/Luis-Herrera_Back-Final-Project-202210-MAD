@@ -55,7 +55,13 @@ describe('Given the user controller', () => {
             id: new mongoose.Types.ObjectId(),
         });
 
+        req.body = {
+            email: mockData[0].email,
+            password: mockData[0].password,
+        };
+
         test('If all the req data its okey, it should login a user', async () => {
+            (validatePassword as jest.Mock).mockResolvedValue(true);
             await controller.login(req as Request, resp as Response, next);
             expect(resp.json).toHaveBeenCalledWith({
                 user: {
@@ -93,16 +99,6 @@ describe('Given the user controller', () => {
             expect(next).toHaveBeenCalledWith(
                 new HTTPError(401, 'Error', 'Error')
             );
-        });
-
-        test('Test generate token function', () => {
-            (generateToken as jest.Mock).mockReturnValue('token');
-            const token = generateToken({
-                id: 'id',
-                name: 'name',
-                role: 'role',
-            });
-            expect(token).toBe('token');
         });
     });
 });

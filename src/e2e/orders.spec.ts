@@ -85,7 +85,7 @@ describe('Given the app with the "/orders" route', () => {
     describe('When we do a delete using the deleteOrder method from the "OrdersController"', () => {
         test('If it is all okey it should return a state  = 201', async () => {
             await request(app)
-                .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
+                .delete(`/orders/delete/${sneakerIds[0]}`)
                 .set('Authorization', `Bearer ${token}`)
                 .expect(201);
         });
@@ -99,7 +99,7 @@ describe('Given the app with the "/orders" route', () => {
 
         test('If there is no auth it must return a status = 406', async () => {
             await request(app)
-                .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
+                .delete(`/orders/delete/${sneakerIds[0]}`)
                 .expect(406);
         });
 
@@ -107,8 +107,9 @@ describe('Given the app with the "/orders" route', () => {
             await OrderModel.deleteMany();
 
             await request(app)
-                .delete(`/orders/delete/${usersIds[0]}/${sneakerIds[0]}`)
-                .expect(406);
+                .delete(`/orders/delete/${sneakerIds[0]}`)
+                .set('Authorization', `Bearer ${token}`)
+                .expect(404);
         });
 
         test('If there is no products associated to the user it must return a status = 406', async () => {
@@ -120,8 +121,9 @@ describe('Given the app with the "/orders" route', () => {
             });
 
             await request(app)
-                .delete(`/orders/delete/${usersIds[0]}/`)
-                .expect(404);
+                .delete(`/orders/delete/${sneakerIds[0]}`)
+                .set('Authorization', `Bearer ${token}`)
+                .expect(503);
         });
     });
 });

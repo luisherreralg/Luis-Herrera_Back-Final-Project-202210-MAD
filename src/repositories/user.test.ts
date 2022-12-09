@@ -43,6 +43,12 @@ describe('Given a singleton instance of the class "UserRepository"', () => {
                 await repo.post(newUser);
             }).rejects.toThrowError();
         });
+
+        it('Then if the post data its empty, it should throw an error', async () => {
+            expect(async () => {
+                await repo.post({});
+            }).rejects.toThrowError();
+        });
     });
 
     describe('When search its invoked', () => {
