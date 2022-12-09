@@ -1,5 +1,5 @@
 import createDebug from 'debug';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import mongoose from 'mongoose';
 import { Order } from '../entities/order.js';
 import { Sneaker } from '../entities/sneaker.js';

@@ -6,7 +6,7 @@ import { OrderRepository } from '../repositories/order';
 import { SneakerRepository } from '../repositories/sneaker';
 import { UserRepository } from '../repositories/user';
 import { createHttpError } from '../utils/create.http.error/create.http.error';
-import { mockOrders, mockUsers } from '../utils/mocks/mocks';
+import { mockOrders } from '../utils/mocks/mocks';
 import { OrderController } from './order.controller';
 
 describe('Given the OrderController', () => {
@@ -77,9 +77,7 @@ describe('Given the OrderController', () => {
         orderRepo.post = jest.fn().mockResolvedValue(mockData[0]);
 
         test('If all the data its okey it should return a the new order', async () => {
-            const spyUserRepo = jest
-                .spyOn(userRepo, 'find')
-                .mockResolvedValue(mockUser);
+            jest.spyOn(userRepo, 'find').mockResolvedValue(mockUser);
 
             req.payload = {
                 id: '6386300332f75d17ee9d62bc',

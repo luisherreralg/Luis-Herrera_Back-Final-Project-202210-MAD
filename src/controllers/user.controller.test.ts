@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { User } from '../entities/user';
 import { HTTPError } from '../interfaces/error';
 import { UserRepository } from '../repositories/user';
-import { generateToken, validatePassword } from '../services/auth';
+import { validatePassword } from '../services/auth';
 import { mockUsers } from '../utils/mocks/mocks';
 import { UserController } from './user.controller';
 
