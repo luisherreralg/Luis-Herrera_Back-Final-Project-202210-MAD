@@ -48,11 +48,6 @@ export class OrderController {
                 throw new Error('Invalid payload');
             }
 
-            // debug('newOrder controller - req.payload', req.payload);
-            // // Find the user passed by the logger
-            // const user = await this.userRepo.find({ id: req.payload.id });
-            // debug('newOrder controller - user', user);
-            // // Save the userId and the itemId inside the req.body
             req.body.cartedBy = req.payload.id;
             req.body.cartedItem = req.params.itemId;
 
