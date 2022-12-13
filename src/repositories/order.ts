@@ -24,8 +24,8 @@ export class OrderRepository implements OrderRepo<Order> {
         debug('find', { data });
         const result = await this.#Model
             .find(data)
-            .populate<{ _id: Types.ObjectId }>('cartedBy')
-            .populate<{ _id: Types.ObjectId }>('cartedItem');
+            .populate('cartedBy')
+            .populate('cartedItem');
 
         if (result.length === 0) {
             throw new Error('There is no order with that id');
